@@ -3,11 +3,42 @@ using System.Data.SQLite;
 
 namespace HomeCash
 {
+	public class DbReader
+	{
+		private static SQLiteDataReader _reader;
+
+		public DbReader(SQLiteDataReader reader) {
+			_reader = reader;
+		}
+
+		public NameValueCollection Next() {
+			if (_reader.IsClosed) {
+				return null;
+			}
+			_reader.Read();
+			if (!_reader.HasRows) {
+				_reader.Close();
+				_reader.Dispose();
+				return null;
+			}
+			return _reader.GetValues();
+		}
+
+		public void Close() {
+			if (_reader.IsClosed) {
+				return;
+			}
+			_reader.Close();
+			_reader.Dispose();
+		}
+
+	}
+
 	public static class Db
 	{
 		private static SQLiteConnection _connection;
 		private static SQLiteCommand _command;
-		private static SQLiteDataReader _reader;
+		
 
 		public static void Connect()
 		{
@@ -26,8 +57,12 @@ namespace HomeCash
 			_command.ExecuteNonQuery();
 		}
 
-		public static NameValueCollection ReadOne(string sql)
+		public static NameValueCollection ReadOne(string sql, params object[] parameter)
 		{
+			if (parameter != null)
+			{
+				sql = string.Format(sql, parameter);
+			}
 			_command.CommandText = sql;
 			using (var reader = _command.ExecuteReader())
 			{
@@ -53,34 +88,22 @@ namespace HomeCash
 			}
 		}
 
-		public static bool Read(string sql)
+		public static DbReader Read(string sql, params object[] parameter)
 		{
-			_command.CommandText = sql;
-			_reader = _command.ExecuteReader();
-			if (!_reader.HasRows)
-			{
-				_reader.Close();
-				_reader.Dispose();
-				return false;
+			if (parameter != null) {
+				sql = string.Format(sql, parameter);
 			}
-			return true;
+			_command.CommandText = sql;
+			var reader = _command.ExecuteReader();
+			if (!reader.HasRows)
+			{
+				reader.Close();
+				reader.Dispose();
+				return null;
+			}
+			return new DbReader(reader);
 		}
 
-		public static NameValueCollection ReadNext()
-		{
-			if (_reader.IsClosed)
-			{
-				return null;
-			}
-			_reader.Read();
-			if (!_reader.HasRows)
-			{
-				_reader.Close();
-				_reader.Dispose();
-				return null;
-			}
-			return _reader.GetValues();
-		}
 	}
 
 

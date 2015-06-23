@@ -44,10 +44,11 @@ namespace HomeCash
 					" from purchase p \n" +
 					" where p.date >= '{0}' and p.date <= '{1}' \n" +
 					" order by date \n",start,end );
-				if (Db.Read(sql))
+				DbReader reader;
+				if ((reader = Db.Read(sql))!=null)
 				{
 					NameValueCollection buf;
-					while ((buf = Db.ReadNext()) != null)
+					while ((buf = reader.Next()) != null)
 					{
 						string date=string.Empty;
 						DateTime dateTime;
@@ -55,7 +56,7 @@ namespace HomeCash
 						{
 							date = dateTime.ToString("dd-MM-yyyy");
 						}
-						ListViewItem item = new ListViewItem();
+						var item = new ListViewItem();
 						item.Text = buf["id"];
 						item.SubItems.Add(buf["number"]);
 						item.SubItems.Add(date);
@@ -76,10 +77,11 @@ namespace HomeCash
 			{
 				Dictionary<string, double> dictionary = new Dictionary<string, double>();
 
-				if (Db.Read("select id, name from cash order by name"))
+				DbReader reader;
+				if ((reader = Db.Read("select id, name from cash order by name")) != null)
 				{
 					NameValueCollection buf;
-					while ((buf = Db.ReadNext()) != null)
+					while ((buf = reader.Next()) != null)
 					{
 						var id = buf["id"];
 						var balance = Operation.GetBalance(id);
