@@ -18,10 +18,11 @@ namespace HomeCash
 		}
 
 		private void FrmListCash_Load(object sender, EventArgs e) {
-			LoadData();
+			LoadDataAsync();
 		}
 
-		private async void LoadData() {
+		private async void LoadDataAsync() {
+			lvCash.Items.Clear();
 			lvCash.Items.AddRange(await LoadCash());
 		}
 
@@ -36,9 +37,9 @@ namespace HomeCash
 						var balance = Operation.GetBalance(id);
 						var name = buf["name"];
 						var item = new ListViewItem {
-							Text = id
+							Text = name,
+							Tag = id
 						};
-						item.SubItems.Add(name);
 						item.SubItems.Add(balance.ToString(".00"));
 						list.Add(item);
 					}
@@ -48,30 +49,55 @@ namespace HomeCash
 		}
 
 		private void AddToolStripMenuItem_Click(object sender, EventArgs e) {
-			var cash = new FrmAddUpdateCash();
-			cash.ShowDialog();
-			LoadData();
+			gbAddEdit.Visible = true;
+			txbObjectName.Tag = null;
+			btnAddEdit.Text = @"Добавить";
+			lblAddEditHeader.Text = @"Добавить счет";
 		}
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (lvCash.SelectedItems.Count > 0) {
-				var cash = new FrmAddUpdateCash(lvCash.SelectedItems[0].Text);
-				cash.ShowDialog();
-				LoadData();
+				txbObjectName.Tag = lvCash.SelectedItems[0].Tag;
+				txbObjectName.Text = lvCash.SelectedItems[0].Text;
+				gbAddEdit.Visible = true;
+				btnAddEdit.Text = @"Изменить";
+				lblAddEditHeader.Text = @"Изменить счет";
 			}
 		}
 
 		private void RemoveToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (lvCash.SelectedItems.Count > 0) {
-				var name = lvCash.SelectedItems[0].SubItems[1].Text;
-				var id = lvCash.SelectedItems[0].text;
+				var name = lvCash.SelectedItems[0].Text;
+				var sum = Double.Parse(lvCash.SelectedItems[0].SubItems[1].Text);
+				var id = lvCash.SelectedItems[0].Tag;
+				if (sum > 0) {
+					MessageBox.Show(@"Внимание!", @"Счет содержит сумму, его нельзя удалить !",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				}
 				var result = MessageBox.Show(@"Внимание!", @"Вы действительно хотите удалить счет: " + name + " ?",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes) {
 					Db.Exec("delete from cash where id='{0}'", id);
 				}
-				LoadData();
+				LoadDataAsync();
 			}
+		}
+
+		private void btnAddEdit_Click(object sender, EventArgs e) {
+			if (txbObjectName.Tag == null) {
+				// Add
+				Db.Exec("insert into cash (id, name) values ('{0}','{1}')", Guid.NewGuid().ToString(), txbObjectName.Text);
+			} else {
+				// Edit
+				Db.Exec("update cash set name = '{1}' where id='{0}'", txbObjectName.Tag, txbObjectName.Text);
+			}
+			gbAddEdit.Visible = false;
+			LoadDataAsync();
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e) {
+			gbAddEdit.Visible = false;
 		}
 
 	}

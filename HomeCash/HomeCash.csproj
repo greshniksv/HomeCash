@@ -48,12 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmAddUpdateCash.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmAddUpdateCash.Designer.cs">
-      <DependentUpon>FrmAddUpdateCash.cs</DependentUpon>
-    </Compile>
     <Compile Include="Db.cs" />
     <Compile Include="FrmListCash.cs">
       <SubType>Form</SubType>
@@ -66,6 +60,12 @@
     </Compile>
     <Compile Include="FrmListProduct.Designer.cs">
       <DependentUpon>FrmListProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmListTopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmListTopUp.Designer.cs">
+      <DependentUpon>FrmListTopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmLoader.cs">
       <SubType>Form</SubType>
@@ -85,14 +85,14 @@
     <Compile Include="SuggestComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="FrmAddUpdateCash.resx">
-      <DependentUpon>FrmAddUpdateCash.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmListCash.resx">
       <DependentUpon>FrmListCash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmListProduct.resx">
       <DependentUpon>FrmListProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmListTopUp.resx">
+      <DependentUpon>FrmListTopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLoader.resx">
       <DependentUpon>FrmLoader.cs</DependentUpon>

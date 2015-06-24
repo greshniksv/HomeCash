@@ -18,6 +18,7 @@ namespace HomeCash
 		}
 
 		private async void LoadDataAsync() {
+			lvProduct.Items.Clear();
 			lvProduct.Items.AddRange(await LoadProduct());
 		}
 
@@ -31,9 +32,9 @@ namespace HomeCash
 						var id = buf["id"];
 						var name = buf["name"];
 						var item = new ListViewItem {
-							Text = id
+							Text = name,
+							Tag = id
 						};
-						item.SubItems.Add(name);
 						list.Add(item);
 					}
 				}
@@ -49,21 +50,23 @@ namespace HomeCash
 			gbAddEditProduct.Visible = true;
 			txbProductName.Tag = null;
 			btnAddEdit.Text = @"Добавить";
+			lblAddEditHeader.Text = @"Добавить продукт";
 		}
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (lvProduct.SelectedItems.Count > 0) {
-				txbProductName.Tag = lvProduct.SelectedItems[0].Text;
-				txbProductName.Text = lvProduct.SelectedItems[0].SubItems[1].Text;
+				txbProductName.Tag = lvProduct.SelectedItems[0].Tag;
+				txbProductName.Text = lvProduct.SelectedItems[0].Text;
 				gbAddEditProduct.Visible = true;
 				btnAddEdit.Text = @"Изменить";
+				lblAddEditHeader.Text = @"Изменить продукт";
 			}
 		}
 
 		private void RemoveToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (lvProduct.SelectedItems.Count > 0) {
-				var productName = lvProduct.SelectedItems[0].SubItems[1].Text;
-				var productId = lvProduct.SelectedItems[0].Text;
+				var productName = lvProduct.SelectedItems[0].Text;
+				var productId = lvProduct.SelectedItems[0].Tag;
 				var result = MessageBox.Show(@"Удалить", @"Вы действительно хотите удалить продукт: " + productName,
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes) {
@@ -79,7 +82,7 @@ namespace HomeCash
 				Db.Exec("insert into product (id, name) values ('{0}','{1}')", Guid.NewGuid().ToString(), txbProductName.Text);
 			} else {
 				// Edit
-				Db.Exec("update product set name = '{0}' where id='{1}'", txbProductName.Tag.ToString(), txbProductName.Text);
+				Db.Exec("update product set name = '{1}' where id='{0}'", txbProductName.Tag, txbProductName.Text);
 			}
 			gbAddEditProduct.Visible = false;
 			LoadDataAsync();

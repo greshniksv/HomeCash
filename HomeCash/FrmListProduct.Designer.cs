@@ -1,5 +1,7 @@
 ﻿namespace HomeCash
 {
+	using System.Windows.Forms;
+
 	partial class FrmListProduct
 	{
 		/// <summary>
@@ -29,17 +31,17 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.lvProduct = new System.Windows.Forms.ListView();
-			this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.AddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gbAddEditProduct = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.txbProductName = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnAddEdit = new System.Windows.Forms.Button();
+			this.lblAddEditHeader = new System.Windows.Forms.Label();
+			this.txbProductName = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.contextMenuStrip1.SuspendLayout();
 			this.gbAddEditProduct.SuspendLayout();
 			this.SuspendLayout();
@@ -66,9 +68,9 @@
 			// lvProduct
 			// 
 			this.lvProduct.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.id,
             this.Name});
 			this.lvProduct.ContextMenuStrip = this.contextMenuStrip1;
+			this.lvProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.lvProduct.FullRowSelect = true;
 			this.lvProduct.GridLines = true;
 			this.lvProduct.Location = new System.Drawing.Point(12, 12);
@@ -77,11 +79,6 @@
 			this.lvProduct.TabIndex = 7;
 			this.lvProduct.UseCompatibleStateImageBehavior = false;
 			this.lvProduct.View = System.Windows.Forms.View.Details;
-			// 
-			// id
-			// 
-			this.id.Text = "id";
-			this.id.Width = 0;
 			// 
 			// Name
 			// 
@@ -114,14 +111,15 @@
 			// RemoveToolStripMenuItem
 			// 
 			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
-			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.RemoveToolStripMenuItem.Text = "Удалить";
 			this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
 			// 
 			// gbAddEditProduct
 			// 
+			this.gbAddEditProduct.Controls.Add(this.btnCancel);
 			this.gbAddEditProduct.Controls.Add(this.btnAddEdit);
-			this.gbAddEditProduct.Controls.Add(this.label2);
+			this.gbAddEditProduct.Controls.Add(this.lblAddEditHeader);
 			this.gbAddEditProduct.Controls.Add(this.txbProductName);
 			this.gbAddEditProduct.Controls.Add(this.label1);
 			this.gbAddEditProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -132,14 +130,34 @@
 			this.gbAddEditProduct.TabStop = false;
 			this.gbAddEditProduct.Visible = false;
 			// 
-			// label1
+			// btnCancel
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(21, 124);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(172, 16);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Наименование продукта";
+			this.btnCancel.Location = new System.Drawing.Point(349, 235);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(108, 23);
+			this.btnCancel.TabIndex = 4;
+			this.btnCancel.Text = "Отмена";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			// 
+			// btnAddEdit
+			// 
+			this.btnAddEdit.Location = new System.Drawing.Point(489, 235);
+			this.btnAddEdit.Name = "btnAddEdit";
+			this.btnAddEdit.Size = new System.Drawing.Size(106, 23);
+			this.btnAddEdit.TabIndex = 3;
+			this.btnAddEdit.Text = "button1";
+			this.btnAddEdit.UseVisualStyleBackColor = true;
+			this.btnAddEdit.Click += new System.EventHandler(this.btnAddEdit_Click);
+			// 
+			// lblAddEditHeader
+			// 
+			this.lblAddEditHeader.AutoSize = true;
+			this.lblAddEditHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblAddEditHeader.Location = new System.Drawing.Point(21, 29);
+			this.lblAddEditHeader.Name = "lblAddEditHeader";
+			this.lblAddEditHeader.Size = new System.Drawing.Size(337, 42);
+			this.lblAddEditHeader.TabIndex = 2;
+			this.lblAddEditHeader.Text = "Добавить продукт";
 			// 
 			// txbProductName
 			// 
@@ -148,25 +166,14 @@
 			this.txbProductName.Size = new System.Drawing.Size(571, 22);
 			this.txbProductName.TabIndex = 1;
 			// 
-			// label2
+			// label1
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label2.Location = new System.Drawing.Point(21, 29);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(337, 42);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Добавить продукт";
-			// 
-			// btnAddEdit
-			// 
-			this.btnAddEdit.Location = new System.Drawing.Point(520, 205);
-			this.btnAddEdit.Name = "btnAddEdit";
-			this.btnAddEdit.Size = new System.Drawing.Size(75, 23);
-			this.btnAddEdit.TabIndex = 3;
-			this.btnAddEdit.Text = "button1";
-			this.btnAddEdit.UseVisualStyleBackColor = true;
-			this.btnAddEdit.Click += new System.EventHandler(this.btnAddEdit_Click);
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(21, 124);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(172, 16);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Наименование продукта";
 			// 
 			// FrmListProduct
 			// 
@@ -177,8 +184,6 @@
 			this.Controls.Add(this.lvProduct);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.btnOk);
-			this.Name = "FrmListProduct";
-			this.Text = "FrmListProduct";
 			this.Load += new System.EventHandler(this.FrmListProduct_Load);
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.gbAddEditProduct.ResumeLayout(false);
@@ -192,16 +197,16 @@
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button btnOk;
 		private System.Windows.Forms.ListView lvProduct;
-		private System.Windows.Forms.ColumnHeader id;
 		private System.Windows.Forms.ColumnHeader Name;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem AddToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem RemoveToolStripMenuItem;
 		private System.Windows.Forms.GroupBox gbAddEditProduct;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label lblAddEditHeader;
 		private System.Windows.Forms.TextBox txbProductName;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnAddEdit;
+		private System.Windows.Forms.Button btnCancel;
 	}
 }
