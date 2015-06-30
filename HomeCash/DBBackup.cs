@@ -26,17 +26,24 @@
 				return;
 			}
 			_newBackupFile = BackupFolder + @"\" + DateTime.Now.ToString("yyyy.MM.dd");
+			if (File.Exists(_newBackupFile)) {
+				File.Delete(_newBackupFile);
+			}
 			File.Copy(Db.DatabaseFile, _newBackupFile);
 		}
 
 		public void Create() {
+			var finalFileName = _newBackupFile + ".dbbak";
 			if (_firstRun) {
 				return;
 			}
 			if (_newBackupFile == null) {
 				throw new Exception("You can't create backup twice from one DBBackup instance!");
 			}
-			File.Move(_newBackupFile, _newBackupFile+".dbbak");
+			if (File.Exists(finalFileName)) {
+				File.Delete(finalFileName);
+			}
+			File.Move(_newBackupFile, finalFileName);
 			_newBackupFile = null;
 		}
 

@@ -188,6 +188,7 @@
 			this.Controls.Add(this.lvProduct);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.btnOk);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Text = "Продукты";
 			this.Load += new System.EventHandler(this.FrmListProduct_Load);
 			this.contextMenuStrip1.ResumeLayout(false);
