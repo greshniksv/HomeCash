@@ -38,8 +38,14 @@ namespace HomeCash
 			PlaceCashOnPanel(await LoadHeadCashAsync());
 			cbCash.Items.AddRange(await LoadCashAsync());
 			scbProduct.Items.AddRange(await LoadProductAsync());
+			CalculateSumm();
 
 			_loading = false;
+		}
+
+		private void CalculateSumm() {
+			double sum = lvPurchase.Items.Cast<ListViewItem>().Sum(item => double.Parse(item.SubItems[5].Text.Replace(".", ",")));
+			toolStripStatusSum.Text = @"Сумма: " + sum;
 		}
 
 		private Task<ListViewItem[]> LoadPurcaseAsync() {
@@ -71,7 +77,7 @@ namespace HomeCash
 						item.SubItems.Add(buf["cash"]);
 						item.SubItems.Add(buf["product"]);
 						item.SubItems.Add(buf["volume"]);
-						item.SubItems.Add(buf["sum"].Replace("-",""));
+						item.SubItems.Add(buf["sum"].Replace("-", ""));
 						itemCollection.Add(item);
 					}
 				}
@@ -79,9 +85,9 @@ namespace HomeCash
 			});
 		}
 
-		private Task<Dictionary<string, double>> LoadHeadCashAsync() {
-			return Task<Dictionary<string, double>>.Factory.StartNew(() => {
-				var dictionary = new Dictionary<string, double>();
+		private Task<Dictionary<string, string>> LoadHeadCashAsync() {
+			return Task<Dictionary<string, string>>.Factory.StartNew(() => {
+				var dictionary = new Dictionary<string, string>();
 
 				DbReader reader;
 				if ((reader = Db.Read("select id, name from cash order by name")) != null) {
@@ -90,7 +96,7 @@ namespace HomeCash
 						var id = buf["id"];
 						var balance = Operation.GetBalance(id);
 						var name = buf["name"];
-						dictionary.Add(name, balance);
+						dictionary.Add(name, balance.ToString("0.00"));
 					}
 				}
 				return dictionary;
@@ -149,7 +155,7 @@ namespace HomeCash
 			});
 		}
 
-		private void PlaceCashOnPanel(Dictionary<string, double> dictionary) {
+		private void PlaceCashOnPanel(Dictionary<string, string> dictionary) {
 			gbCashPanel.Controls.Clear();
 			int location = 0;
 			foreach (var item in dictionary) {
@@ -160,7 +166,7 @@ namespace HomeCash
 					Text = item.Value.ToString(CultureInfo.InvariantCulture),
 					Size = new Size(blockSize - 10, 16),
 					Location = new Point(8, 24),
-					Font = new Font(new FontFamily("Microsoft Sans Serif"), 11, FontStyle.Bold)
+					Font = new Font(new FontFamily("Courier New"), 11, FontStyle.Bold)
 				};
 				var box = new GroupBox {
 					Size = new Size(blockSize, 55),
@@ -192,25 +198,39 @@ namespace HomeCash
 
 		private void btnAddEdit_Click(object sender, EventArgs e) {
 			double sum;
-			if (!double.TryParse(txbSum.Text, out sum)) {
+			string ssum = txbSum.Text.Replace(".", ",");
+			if (!double.TryParse(ssum, out sum)) {
 				MessageBox.Show(@"В поле 'Сумма для внесения' должна быть сумма!");
 				return;
 			}
+			string summToData = String.Format("{0:0.00}", sum * -1).Replace(",", ".");
 			var cashid = ((ComboBoxItem)cbCash.SelectedItem).Id;
 			var productName = (string)scbProduct.SelectedItem ?? scbProduct.Text;
 			var productid = GetProductId(productName);
 			if (scbProduct.Tag == null) {
 				// Add
 				Db.Exec("insert into purchase (id, date, sum, cashid, productid, volume,  istotop, number) values " +
-						"('{0}','{1}','{2}','{3}','{4}','{5}', '0', (SELECT max(number) FROM purchase))",
-					Guid.NewGuid(), DateTime.Now.ToString("yyyy-MM-dd"), sum * -1, cashid, productid, txbVolume.Text);
+						"('{0}','{1}','{2}','{3}','{4}','{5}', '0', (SELECT coalesce(max(number),0)+1 FROM purchase))",
+					Guid.NewGuid(), DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
 			} else {
 				// Edit
 				Db.Exec("update purchase set date = '{1}', sum='{2}', cashid='{3}', productid='{4}', volume='{5}' where id='{0}'",
-					scbProduct.Tag, DateTime.Now.ToString("yyyy-MM-dd"), sum * -1, cashid, productid, txbVolume.Text);
+					scbProduct.Tag, DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
 			}
-			gbPurchase.Visible = false;
-			LoadDataAsync();
+			if (cbOneMore.Checked) {
+				AddOneMore();
+			} else {
+				gbPurchase.Visible = false;
+				LoadDataAsync();
+			}
+		}
+
+		private void AddOneMore() {
+			scbProduct.Text = string.Empty;
+			lsbProduct.Visible = false;
+			txbVolume.Text = string.Empty;
+			txbSum.Text = string.Empty;
+			scbProduct.Focus();
 		}
 
 		private void AddToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -255,6 +275,7 @@ namespace HomeCash
 
 		private void btnCancel_Click(object sender, EventArgs e) {
 			gbPurchase.Visible = false;
+			LoadDataAsync();
 		}
 
 		private void CashToolStripMenuItem1_Click(object sender, EventArgs e) {
@@ -302,6 +323,44 @@ namespace HomeCash
 				}
 			}
 		}
+
+		private void scbProduct_SelectionChangeCommitted(object sender, EventArgs e) {
+			lsbProduct.Visible = false;
+		}
+
+		private void scbProduct_Leave(object sender, EventArgs e) {
+			lsbProduct.Visible = false;
+		}
+
+		private void txbSum_KeyUp(object sender, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Enter) {
+				btnAddEdit_Click(null, null);
+			}
+		}
+
+		private void lsbProduct_KeyUp(object sender, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Escape) {
+				lsbProduct.Visible = false;
+				scbProduct.Focus();
+			}
+		}
+
+		private void tsbAddPurchase_Click(object sender, EventArgs e) {
+			AddToolStripMenuItem_Click(null, null);
+		}
+
+		private void tsbCash_Click(object sender, EventArgs e) {
+			CashToolStripMenuItem1_Click(null, null);
+		}
+
+		private void tsbProduct_Click(object sender, EventArgs e) {
+			ProductToolStripMenuItem_Click(null, null);
+		}
+
+		private void tsbTopUp_Click(object sender, EventArgs e) {
+			topupMenuToolStripMenuItem_Click(null, null);
+		}
+
 
 	}
 }

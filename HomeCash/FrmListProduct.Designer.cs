@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListProduct));
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.lvProduct = new System.Windows.Forms.ListView();
@@ -96,6 +97,7 @@
 			// 
 			// AddToolStripMenuItem
 			// 
+			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
 			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
 			this.AddToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.AddToolStripMenuItem.Text = "Добавить";
@@ -103,6 +105,7 @@
 			// 
 			// EditToolStripMenuItem
 			// 
+			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
 			this.EditToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.EditToolStripMenuItem.Text = "Изменить";
@@ -110,6 +113,7 @@
 			// 
 			// RemoveToolStripMenuItem
 			// 
+			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
 			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
 			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.RemoveToolStripMenuItem.Text = "Удалить";
@@ -184,6 +188,7 @@
 			this.Controls.Add(this.lvProduct);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.btnOk);
+			this.Text = "Продукты";
 			this.Load += new System.EventHandler(this.FrmListProduct_Load);
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.gbAddEditProduct.ResumeLayout(false);

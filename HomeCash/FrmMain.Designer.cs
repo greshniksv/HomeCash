@@ -31,18 +31,17 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.tsbAddPurchase = new System.Windows.Forms.ToolStripButton();
+			this.tsbCash = new System.Windows.Forms.ToolStripButton();
+			this.tsbProduct = new System.Windows.Forms.ToolStripButton();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-			this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.cashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.TopUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.purchaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.управлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CashToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.ProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.topupMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.toolStripStatusSum = new System.Windows.Forms.ToolStripStatusLabel();
 			this.gbCashPanel = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -61,6 +60,9 @@
 			this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label2 = new System.Windows.Forms.Label();
 			this.gbPurchase = new System.Windows.Forms.GroupBox();
+			this.cbOneMore = new System.Windows.Forms.CheckBox();
+			this.lsbProduct = new System.Windows.Forms.ListBox();
+			this.scbProduct = new System.Windows.Forms.ComboBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.cbCash = new System.Windows.Forms.ComboBox();
 			this.btnCancel = new System.Windows.Forms.Button();
@@ -71,12 +73,11 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txbVolume = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-			this.scbProduct = new System.Windows.Forms.ComboBox();
-			this.lsbProduct = new System.Windows.Forms.ListBox();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsbTopUp = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
+			this.statusStrip1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.contextMenuStrip1.SuspendLayout();
 			this.gbPurchase.SuspendLayout();
@@ -85,28 +86,50 @@
 			// toolStrip1
 			// 
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3});
+            this.tsbAddPurchase,
+            this.toolStripSeparator1,
+            this.tsbCash,
+            this.tsbProduct,
+            this.tsbTopUp});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 25);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(1272, 25);
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
-			// toolStripButton1
+			// tsbAddPurchase
 			// 
-			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton1.Text = "toolStripButton1";
+			this.tsbAddPurchase.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.tsbAddPurchase.Image = ((System.Drawing.Image)(resources.GetObject("tsbAddPurchase.Image")));
+			this.tsbAddPurchase.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbAddPurchase.Name = "tsbAddPurchase";
+			this.tsbAddPurchase.Size = new System.Drawing.Size(134, 22);
+			this.tsbAddPurchase.Text = "Добавить покупку";
+			this.tsbAddPurchase.Click += new System.EventHandler(this.tsbAddPurchase_Click);
+			// 
+			// tsbCash
+			// 
+			this.tsbCash.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.tsbCash.Image = ((System.Drawing.Image)(resources.GetObject("tsbCash.Image")));
+			this.tsbCash.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbCash.Name = "tsbCash";
+			this.tsbCash.Size = new System.Drawing.Size(63, 22);
+			this.tsbCash.Text = "Счета";
+			this.tsbCash.Click += new System.EventHandler(this.tsbCash_Click);
+			// 
+			// tsbProduct
+			// 
+			this.tsbProduct.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.tsbProduct.Image = ((System.Drawing.Image)(resources.GetObject("tsbProduct.Image")));
+			this.tsbProduct.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbProduct.Name = "tsbProduct";
+			this.tsbProduct.Size = new System.Drawing.Size(73, 22);
+			this.tsbProduct.Text = "Товары";
+			this.tsbProduct.Click += new System.EventHandler(this.tsbProduct_Click);
 			// 
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.новыйToolStripMenuItem,
             this.управлениеToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -115,36 +138,6 @@
 			this.menuStrip1.Size = new System.Drawing.Size(1272, 25);
 			this.menuStrip1.TabIndex = 1;
 			this.menuStrip1.Text = "menuStrip1";
-			// 
-			// новыйToolStripMenuItem
-			// 
-			this.новыйToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cashToolStripMenuItem,
-            this.TopUpToolStripMenuItem,
-            this.purchaseToolStripMenuItem});
-			this.новыйToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-			this.новыйToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-			this.новыйToolStripMenuItem.Text = "Создать";
-			// 
-			// cashToolStripMenuItem
-			// 
-			this.cashToolStripMenuItem.Name = "cashToolStripMenuItem";
-			this.cashToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.cashToolStripMenuItem.Text = "Счет";
-			this.cashToolStripMenuItem.Click += new System.EventHandler(this.cashToolStripMenuItem_Click);
-			// 
-			// TopUpToolStripMenuItem
-			// 
-			this.TopUpToolStripMenuItem.Name = "TopUpToolStripMenuItem";
-			this.TopUpToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.TopUpToolStripMenuItem.Text = "Приход";
-			// 
-			// purchaseToolStripMenuItem
-			// 
-			this.purchaseToolStripMenuItem.Name = "purchaseToolStripMenuItem";
-			this.purchaseToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.purchaseToolStripMenuItem.Text = "Покупку";
 			// 
 			// управлениеToolStripMenuItem
 			// 
@@ -159,22 +152,25 @@
 			// 
 			// CashToolStripMenuItem1
 			// 
+			this.CashToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("CashToolStripMenuItem1.Image")));
 			this.CashToolStripMenuItem1.Name = "CashToolStripMenuItem1";
-			this.CashToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-			this.CashToolStripMenuItem1.Text = "Счет";
+			this.CashToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.CashToolStripMenuItem1.Text = "Счета";
 			this.CashToolStripMenuItem1.Click += new System.EventHandler(this.CashToolStripMenuItem1_Click);
 			// 
 			// ProductToolStripMenuItem
 			// 
+			this.ProductToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ProductToolStripMenuItem.Image")));
 			this.ProductToolStripMenuItem.Name = "ProductToolStripMenuItem";
-			this.ProductToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.ProductToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.ProductToolStripMenuItem.Text = "Товары";
 			this.ProductToolStripMenuItem.Click += new System.EventHandler(this.ProductToolStripMenuItem_Click);
 			// 
 			// topupMenuToolStripMenuItem
 			// 
+			this.topupMenuToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("topupMenuToolStripMenuItem.Image")));
 			this.topupMenuToolStripMenuItem.Name = "topupMenuToolStripMenuItem";
-			this.topupMenuToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.topupMenuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.topupMenuToolStripMenuItem.Text = "Пополнения";
 			this.topupMenuToolStripMenuItem.Click += new System.EventHandler(this.topupMenuToolStripMenuItem_Click);
 			// 
@@ -187,12 +183,22 @@
 			// 
 			// statusStrip1
 			// 
+			this.statusStrip1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusSum});
 			this.statusStrip1.Location = new System.Drawing.Point(0, 641);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
 			this.statusStrip1.Size = new System.Drawing.Size(1272, 22);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// toolStripStatusSum
+			// 
+			this.toolStripStatusSum.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.toolStripStatusSum.Name = "toolStripStatusSum";
+			this.toolStripStatusSum.Size = new System.Drawing.Size(112, 17);
+			this.toolStripStatusSum.Text = "Cevvf 1258.56";
 			// 
 			// gbCashPanel
 			// 
@@ -317,6 +323,7 @@
 			// 
 			// AddToolStripMenuItem
 			// 
+			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
 			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
 			this.AddToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.AddToolStripMenuItem.Text = "Добавить";
@@ -324,6 +331,7 @@
 			// 
 			// EditToolStripMenuItem
 			// 
+			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
 			this.EditToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.EditToolStripMenuItem.Text = "Изменить";
@@ -331,6 +339,7 @@
 			// 
 			// RemoveToolStripMenuItem
 			// 
+			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
 			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
 			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.RemoveToolStripMenuItem.Text = "Удалить";
@@ -350,6 +359,7 @@
 			this.gbPurchase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.gbPurchase.Controls.Add(this.cbOneMore);
 			this.gbPurchase.Controls.Add(this.lsbProduct);
 			this.gbPurchase.Controls.Add(this.scbProduct);
 			this.gbPurchase.Controls.Add(this.label6);
@@ -369,6 +379,42 @@
 			this.gbPurchase.TabStop = false;
 			this.gbPurchase.Text = "Оформить покупку";
 			this.gbPurchase.Visible = false;
+			// 
+			// cbOneMore
+			// 
+			this.cbOneMore.AutoSize = true;
+			this.cbOneMore.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.cbOneMore.Location = new System.Drawing.Point(818, 334);
+			this.cbOneMore.Name = "cbOneMore";
+			this.cbOneMore.Size = new System.Drawing.Size(178, 20);
+			this.cbOneMore.TabIndex = 14;
+			this.cbOneMore.Text = "Добавить еще товар";
+			this.cbOneMore.UseVisualStyleBackColor = true;
+			// 
+			// lsbProduct
+			// 
+			this.lsbProduct.FormattingEnabled = true;
+			this.lsbProduct.ItemHeight = 16;
+			this.lsbProduct.Location = new System.Drawing.Point(61, 223);
+			this.lsbProduct.Name = "lsbProduct";
+			this.lsbProduct.Size = new System.Drawing.Size(594, 148);
+			this.lsbProduct.TabIndex = 6;
+			this.lsbProduct.Visible = false;
+			this.lsbProduct.Click += new System.EventHandler(this.lsbProduct_Click);
+			this.lsbProduct.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lsbProduct_KeyUp);
+			// 
+			// scbProduct
+			// 
+			this.scbProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.scbProduct.FormattingEnabled = true;
+			this.scbProduct.Location = new System.Drawing.Point(61, 196);
+			this.scbProduct.Name = "scbProduct";
+			this.scbProduct.Size = new System.Drawing.Size(594, 26);
+			this.scbProduct.TabIndex = 0;
+			this.scbProduct.SelectedIndexChanged += new System.EventHandler(this.scbProduct_SelectedIndexChanged);
+			this.scbProduct.SelectionChangeCommitted += new System.EventHandler(this.scbProduct_SelectionChangeCommitted);
+			this.scbProduct.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scbProduct_KeyDown);
+			this.scbProduct.Leave += new System.EventHandler(this.scbProduct_Leave);
 			// 
 			// label6
 			// 
@@ -437,6 +483,7 @@
 			this.txbSum.Name = "txbSum";
 			this.txbSum.Size = new System.Drawing.Size(147, 24);
 			this.txbSum.TabIndex = 3;
+			this.txbSum.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txbSum_KeyUp);
 			// 
 			// label4
 			// 
@@ -464,45 +511,20 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Наименование продукции";
 			// 
-			// toolStripButton2
+			// toolStripSeparator1
 			// 
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton2.Text = "toolStripButton2";
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
-			// toolStripButton3
+			// tsbTopUp
 			// 
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton3.Text = "toolStripButton3";
-			// 
-			// scbProduct
-			// 
-			this.scbProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.scbProduct.FormattingEnabled = true;
-			this.scbProduct.Location = new System.Drawing.Point(61, 196);
-			this.scbProduct.Name = "scbProduct";
-			this.scbProduct.Size = new System.Drawing.Size(594, 26);
-			this.scbProduct.TabIndex = 0;
-			this.scbProduct.SelectedIndexChanged += new System.EventHandler(this.scbProduct_SelectedIndexChanged);
-			this.scbProduct.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scbProduct_KeyDown);
-			// 
-			// lsbProduct
-			// 
-			this.lsbProduct.FormattingEnabled = true;
-			this.lsbProduct.ItemHeight = 16;
-			this.lsbProduct.Location = new System.Drawing.Point(61, 223);
-			this.lsbProduct.Name = "lsbProduct";
-			this.lsbProduct.Size = new System.Drawing.Size(594, 148);
-			this.lsbProduct.TabIndex = 6;
-			this.lsbProduct.Visible = false;
-			this.lsbProduct.Click += new System.EventHandler(this.lsbProduct_Click);
+			this.tsbTopUp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.tsbTopUp.Image = ((System.Drawing.Image)(resources.GetObject("tsbTopUp.Image")));
+			this.tsbTopUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbTopUp.Name = "tsbTopUp";
+			this.tsbTopUp.Size = new System.Drawing.Size(99, 22);
+			this.tsbTopUp.Text = "Пополнения";
+			this.tsbTopUp.Click += new System.EventHandler(this.tsbTopUp_Click);
 			// 
 			// FrmMain
 			// 
@@ -525,6 +547,8 @@
 			this.toolStrip1.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.contextMenuStrip1.ResumeLayout(false);
@@ -539,13 +563,9 @@
 
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.ToolStripMenuItem новыйToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton tsbAddPurchase;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.GroupBox gbCashPanel;
-		private System.Windows.Forms.ToolStripMenuItem cashToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem TopUpToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem purchaseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem управлениеToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CashToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem ProductToolStripMenuItem;
@@ -578,10 +598,14 @@
 		private System.Windows.Forms.ToolStripMenuItem topupMenuToolStripMenuItem;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.ComboBox cbCash;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
+		private System.Windows.Forms.ToolStripButton tsbCash;
+		private System.Windows.Forms.ToolStripButton tsbProduct;
 		private System.Windows.Forms.ListBox lsbProduct;
 		private System.Windows.Forms.ComboBox scbProduct;
+		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusSum;
+		private System.Windows.Forms.CheckBox cbOneMore;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripButton tsbTopUp;
 	}
 }
 

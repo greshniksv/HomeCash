@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db.cs" />
+    <Compile Include="DBBackup.cs" />
+    <Compile Include="DBReader.cs" />
     <Compile Include="FrmListCash.cs">
       <SubType>Form</SubType>
     </Compile>

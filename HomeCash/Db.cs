@@ -3,45 +3,22 @@ using System.Data.SQLite;
 
 namespace HomeCash
 {
+	using System;
 	using System.IO;
 	using System.Text;
 
-	public class DbReader
-	{
-		private readonly SQLiteDataReader _reader;
-
-		public DbReader(SQLiteDataReader reader) {
-			_reader = reader;
-		}
-
-		public NameValueCollection Next() {
-			if (_reader.IsClosed) {
-				return null;
-			}
-			_reader.Read();
-			if (!_reader.HasRows) {
-				_reader.Close();
-				_reader.Dispose();
-				return null;
-			}
-			return _reader.GetValues();
-		}
-
-		public void Close() {
-			if (_reader.IsClosed) {
-				return;
-			}
-			_reader.Close();
-			_reader.Dispose();
-		}
-
-	}
 
 	public static class Db
 	{
 		private static SQLiteConnection _connection;
 		private static SQLiteCommand _command;
+		private const string Database = @".\homecashe.db";
 
+		public static string DatabaseFile {
+			get {
+				return Database;
+			}
+		}
 
 		private static SQLiteCommand CreateCommandConnection() {
 			//var connection = new SQLiteConnection(@"Data Source=.\homecashe.db;Version=3;");
@@ -49,8 +26,46 @@ namespace HomeCash
 			return _connection.CreateCommand();
 		}
 
+		private static bool CheckTable(string table, SQLiteCommand command) {
+			try {
+				command.CommandText = "select * from " + table;
+				var reader = command.ExecuteReader();
+				while (reader.Read()) { }
+				reader.Close();
+			} catch (Exception) {
+				return false;
+			}
+			return true;
+		}
+
+		public static bool ValidateDatabase(Action<string, int> eventing=null) {
+			SQLiteConnection connection;
+			if (!File.Exists(Database)) {
+				return false;
+			}
+			try {
+				connection = new SQLiteConnection(@"Data Source=.\homecashe.db;Version=3;");
+				connection.Open();
+			} catch (Exception) {
+				return false;
+			}
+			var command = connection.CreateCommand();
+			var tables = new[] { "purchase", "cash", "product" };
+			int count = 0;
+			foreach (var table in tables) {
+				count++;
+				if (eventing != null) {
+					eventing(@"Check table" + table, (count * 100 / tables.Length));
+				}
+				if (!CheckTable(table, command)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 		public static void Connect() {
-			bool generateDatabase = !File.Exists(@".\homecashe.db");
+			bool generateDatabase = !File.Exists(Database);
 			_connection = new SQLiteConnection(@"Data Source=.\homecashe.db;Version=3;");
 			_connection.Open();
 			_command = _connection.CreateCommand();

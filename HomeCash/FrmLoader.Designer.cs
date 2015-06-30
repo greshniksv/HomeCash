@@ -32,8 +32,9 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.progressBar = new System.Windows.Forms.ProgressBar();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.lblInfo = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -66,29 +67,39 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "to";
 			// 
-			// progressBar1
+			// progressBar
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(12, 292);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(518, 26);
-			this.progressBar1.TabIndex = 3;
+			this.progressBar.Location = new System.Drawing.Point(12, 288);
+			this.progressBar.Name = "progressBar";
+			this.progressBar.Size = new System.Drawing.Size(518, 26);
+			this.progressBar.TabIndex = 3;
 			// 
 			// timer1
 			// 
 			this.timer1.Interval = 500;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
-			// Loader
+			// lblInfo
+			// 
+			this.lblInfo.AutoSize = true;
+			this.lblInfo.Location = new System.Drawing.Point(12, 318);
+			this.lblInfo.Name = "lblInfo";
+			this.lblInfo.Size = new System.Drawing.Size(16, 13);
+			this.lblInfo.TabIndex = 4;
+			this.lblInfo.Text = "...";
+			// 
+			// FrmLoader
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.BackColor = System.Drawing.Color.SkyBlue;
 			this.ClientSize = new System.Drawing.Size(542, 340);
-			this.Controls.Add(this.progressBar1);
+			this.Controls.Add(this.lblInfo);
+			this.Controls.Add(this.progressBar);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.Name = "Loader";
+			this.Name = "FrmLoader";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Loader";
 			this.Load += new System.EventHandler(this.Loader_Load);
@@ -102,7 +113,8 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.ProgressBar progressBar1;
+		private System.Windows.Forms.ProgressBar progressBar;
 		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Label lblInfo;
 	}
 }

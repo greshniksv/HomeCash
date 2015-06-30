@@ -26,6 +26,7 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListTopUp));
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.btnAddEdit = new System.Windows.Forms.Button();
@@ -179,6 +180,7 @@
 			// 
 			// AddToolStripMenuItem
 			// 
+			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
 			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
 			this.AddToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.AddToolStripMenuItem.Text = "Добавить";
@@ -186,6 +188,7 @@
 			// 
 			// EditToolStripMenuItem
 			// 
+			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
 			this.EditToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.EditToolStripMenuItem.Text = "Изменить";
@@ -193,6 +196,7 @@
 			// 
 			// RemoveToolStripMenuItem
 			// 
+			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
 			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
 			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.RemoveToolStripMenuItem.Text = "Удалить";
@@ -210,7 +214,7 @@
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "FrmListTopUp";
-			this.Text = "FrmListTopUp";
+			this.Text = "Поплнения";
 			this.Load += new System.EventHandler(this.FrmListTopUp_Load);
 			this.gbAddEdit.ResumeLayout(false);
 			this.gbAddEdit.PerformLayout();

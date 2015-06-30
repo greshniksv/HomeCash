@@ -9,7 +9,7 @@ namespace HomeCash
 			if (string.IsNullOrEmpty(sum)) {
 				return 0;
 			}
-			return float.Parse(data["sum"]);
+			return float.Parse(data["sum"].Replace(".",","));
 		}
 
 

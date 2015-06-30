@@ -143,19 +143,20 @@ namespace HomeCash
 
 		private void btnAddEdit_Click(object sender, EventArgs e) {
 			double sum;
-
-			if (!double.TryParse(txbObject.Text, out sum)) {
+			string ssum = txbObject.Text.Replace(".", ",");
+			if (!double.TryParse(ssum, out sum)) {
 				MessageBox.Show(@"В поле 'Сумма для внесения' должна быть сумма!");
 				return;
 			}
+			string summToData = String.Format("{0:0.00}", sum).Replace(",", "."); 
 			var cashid = ((ComboBoxItem)cbCashList.SelectedItem).Id;
 			if (txbObject.Tag == null) {
 				// Add
 				Db.Exec("insert into purchase (id, date, sum, cashid, istotop) values ('{0}','{1}','{2}','{3}', '1')",
-					Guid.NewGuid().ToString(), DateTime.Now.ToString("yyyy-MM-dd"), sum, cashid);
+					Guid.NewGuid().ToString(), DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid);
 			} else {
 				// Edit
-				Db.Exec("update purchase set sum = '{1}', cashid='{2}' where id='{0}'", txbObject.Tag, sum, cashid);
+				Db.Exec("update purchase set sum = '{1}', cashid='{2}' where id='{0}'", txbObject.Tag, summToData, cashid);
 			}
 			gbAddEdit.Visible = false;
 			LoadDataAsync();

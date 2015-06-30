@@ -31,6 +31,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListCash));
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.lvCash = new System.Windows.Forms.ListView();
 			this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,11 +42,11 @@
 			this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.gbAddEdit = new System.Windows.Forms.GroupBox();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnAddEdit = new System.Windows.Forms.Button();
 			this.lblAddEditHeader = new System.Windows.Forms.Label();
 			this.txbObjectName = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.btnCancel = new System.Windows.Forms.Button();
 			this.contextMenuStrip1.SuspendLayout();
 			this.gbAddEdit.SuspendLayout();
 			this.SuspendLayout();
@@ -98,6 +99,7 @@
 			// 
 			// AddToolStripMenuItem
 			// 
+			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
 			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
 			this.AddToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.AddToolStripMenuItem.Text = "Добавить";
@@ -105,6 +107,7 @@
 			// 
 			// EditToolStripMenuItem
 			// 
+			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
 			this.EditToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.EditToolStripMenuItem.Text = "Изменить";
@@ -112,6 +115,7 @@
 			// 
 			// RemoveToolStripMenuItem
 			// 
+			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
 			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
 			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.RemoveToolStripMenuItem.Text = "Удалить";
@@ -144,6 +148,17 @@
 			this.gbAddEdit.TabIndex = 7;
 			this.gbAddEdit.TabStop = false;
 			this.gbAddEdit.Visible = false;
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Location = new System.Drawing.Point(420, 219);
+			this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(100, 28);
+			this.btnCancel.TabIndex = 8;
+			this.btnCancel.Text = "Отмена";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// btnAddEdit
 			// 
@@ -185,17 +200,6 @@
 			this.label1.TabIndex = 4;
 			this.label1.Text = "Наименование счета";
 			// 
-			// btnCancel
-			// 
-			this.btnCancel.Location = new System.Drawing.Point(420, 219);
-			this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(100, 28);
-			this.btnCancel.TabIndex = 8;
-			this.btnCancel.Text = "Отмена";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-			// 
 			// FrmListCash
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -209,7 +213,7 @@
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Text = "ListCash";
+			this.Text = "Счета";
 			this.Load += new System.EventHandler(this.FrmListCash_Load);
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.gbAddEdit.ResumeLayout(false);
