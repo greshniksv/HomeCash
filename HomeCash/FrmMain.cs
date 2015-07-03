@@ -26,20 +26,31 @@ namespace HomeCash
 			LoadDataAsync();
 		}
 
+		private async void LoadPurchase() {
+			var cashId=string.Empty;
+			if (cbCashFilter.Items.Count > 0 && cbCashFilter.SelectedItem.ToString() != "Все") {
+				cashId = ((ComboBoxItem)cbCashFilter.SelectedItem).Id;
+			}
+			lvPurchase.Items.Clear();
+			lvPurchase.Items.AddRange(await LoadPurcaseAsync(cashId));
+			CalculateSumm();
+		}
+
 		private async void LoadDataAsync() {
 			if (_loading)
 				return;
 			_loading = true;
-
-			lvPurchase.Items.Clear();
+			LoadPurchase();
 			cbCash.Items.Clear();
 			scbProduct.Items.Clear();
-			lvPurchase.Items.AddRange(await LoadPurcaseAsync());
+			cbCashFilter.Items.Clear();
 			PlaceCashOnPanel(await LoadHeadCashAsync());
 			cbCash.Items.AddRange(await LoadCashAsync());
+			cbCashFilter.Items.AddRange(LoadCash());
+			cbCashFilter.Items.Add("Все");
+			cbCashFilter.SelectedItem = cbCashFilter.Items[cbCashFilter.Items.Count - 1];
 			scbProduct.Items.AddRange(await LoadProductAsync());
-			CalculateSumm();
-
+			
 			_loading = false;
 		}
 
@@ -48,11 +59,12 @@ namespace HomeCash
 			toolStripStatusSum.Text = @"Сумма: " + sum.ToString("0.00");
 		}
 
-		private Task<ListViewItem[]> LoadPurcaseAsync() {
+		private Task<ListViewItem[]> LoadPurcaseAsync(string cashId = "") {
 			return Task<ListViewItem[]>.Factory.StartNew(() => {
 				string start = dtpStart.Value.ToString("yyyy-MM-dd");
 				string end = dtpEnd.Value.ToString("yyyy-MM-dd");
 				var itemCollection = new List<ListViewItem>();
+				string productFilter = txbProductFilter.Text;
 				string sql = string.Format("select p.id, p.number, \n" +
 					"(select c.name from cash c where c.id = p.cashid) as cash, \n" +
 					"(select pr.name from product pr where pr.id = p.productid) as product, \n" +
@@ -60,7 +72,10 @@ namespace HomeCash
 					" from purchase p \n" +
 					" where p.date >= '{0}' and p.date <= '{1}' \n" +
 					" and istotop = '0' " +
-					" order by date \n", start, end);
+					(!string.IsNullOrEmpty(cashId) ? " and p.cashid = '{2}'" : string.Empty) +
+					(!string.IsNullOrEmpty(productFilter) ?
+					" and p.productid = (select pr1.id from product pr1 where pr1.name like '%{3}%') " : string.Empty) +
+					" order by date \n", start, end, cashId, productFilter);
 				DbReader reader;
 				if ((reader = Db.Read(sql)) != null) {
 					NameValueCollection buf;
@@ -123,19 +138,31 @@ namespace HomeCash
 			});
 		}
 
-		private string GetProductId(string name)
-		{
-			string key;
-			lock (_lock)
-			{
-				if (!_productDict.ContainsValue(name.ToLower())) {
-					// Need add product
-					Guid newId = Guid.NewGuid();
-					Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
-					_productDict.Add(newId.ToString(), name);
-					return newId.ToString();
+		private ComboBoxItem[] LoadCash() {
+			var list = new List<ComboBoxItem>();
+			DbReader reader;
+			if ((reader = Db.Read("select id, name from cash order by name")) != null) {
+				NameValueCollection buf;
+				while ((buf = reader.Next()) != null) {
+					var id = buf["id"];
+					var name = buf["name"];
+					var item = new ComboBoxItem {
+						Name = name,
+						Id = id
+					};
+					list.Add(item);
 				}
-				key = _productDict.First(x => x.Value == name.ToLower()).Key;
+			}
+			return list.ToArray();
+		}
+
+		private string GetProductId(string name) {
+			if (!_productDict.ContainsValue(name.ToLower())) {
+				// Need add product
+				Guid newId = Guid.NewGuid();
+				Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
+				_productDict.Add(newId.ToString(), name);
+				return newId.ToString();
 			}
 			return key;
 		}
@@ -218,11 +245,11 @@ namespace HomeCash
 				// Add
 				Db.Exec("insert into purchase (id, date, sum, cashid, productid, volume,  istotop, number) values " +
 						"('{0}','{1}','{2}','{3}','{4}','{5}', '0', (SELECT coalesce(max(number),0)+1 FROM purchase))",
-					Guid.NewGuid(), DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
+					Guid.NewGuid(), dtpDate.Value.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
 			} else {
 				// Edit
 				Db.Exec("update purchase set date = '{1}', sum='{2}', cashid='{3}', productid='{4}', volume='{5}' where id='{0}'",
-					scbProduct.Tag, DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
+					scbProduct.Tag, dtpDate.Value.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
 			}
 			if (cbOneMore.Checked) {
 				AddOneMore();
@@ -250,11 +277,13 @@ namespace HomeCash
 			lblAddEdit.Text = @"Добавить покупку";
 			scbProduct.SelectedText = "";
 			cbCash.SelectedIndex = 0;
+			scbProduct.Focus();
 		}
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (lvPurchase.SelectedItems.Count > 0) {
 				scbProduct.Tag = lvPurchase.SelectedItems[0].Tag;
+				dtpDate.Value = DateTime.Parse(lvPurchase.SelectedItems[0].SubItems[1].Text);
 				scbProduct.Text = lvPurchase.SelectedItems[0].SubItems[3].Text;
 				txbVolume.Text = lvPurchase.SelectedItems[0].SubItems[4].Text;
 				txbSum.Text = lvPurchase.SelectedItems[0].SubItems[5].Text.Replace("-", "");
@@ -368,6 +397,18 @@ namespace HomeCash
 			topupMenuToolStripMenuItem_Click(null, null);
 		}
 
+		private void cbCashFilter_SelectedIndexChanged(object sender, EventArgs e) {
+			LoadPurchase();
+		}
+
+		private void txbProductFilter_KeyUp(object sender, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Enter) {
+				LoadPurchase();
+			}
+			if (string.IsNullOrEmpty(txbProductFilter.Text)) {
+				LoadPurchase();
+			}
+		}
 
 	}
 }

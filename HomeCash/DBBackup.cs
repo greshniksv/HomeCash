@@ -7,7 +7,7 @@
 	{
 		private const string BackupFolder = @".\Backup";
 		private string _newBackupFile;
-		private bool _firstRun = false;
+		private bool _firstRun;
 
 		public DBBackup() {
 			if (!Directory.Exists(BackupFolder)) {

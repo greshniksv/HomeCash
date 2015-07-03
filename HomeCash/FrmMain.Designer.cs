@@ -32,8 +32,10 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.tsbAddPurchase = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsbCash = new System.Windows.Forms.ToolStripButton();
 			this.tsbProduct = new System.Windows.Forms.ToolStripButton();
+			this.tsbTopUp = new System.Windows.Forms.ToolStripButton();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.управлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CashToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,8 +75,11 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txbVolume = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsbTopUp = new System.Windows.Forms.ToolStripButton();
+			this.dtpDate = new System.Windows.Forms.DateTimePicker();
+			this.label7 = new System.Windows.Forms.Label();
+			this.cbCashFilter = new System.Windows.Forms.ComboBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.txbProductFilter = new System.Windows.Forms.TextBox();
 			this.toolStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -107,6 +112,11 @@
 			this.tsbAddPurchase.Text = "Добавить покупку";
 			this.tsbAddPurchase.Click += new System.EventHandler(this.tsbAddPurchase_Click);
 			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
 			// tsbCash
 			// 
 			this.tsbCash.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -126,6 +136,16 @@
 			this.tsbProduct.Size = new System.Drawing.Size(73, 22);
 			this.tsbProduct.Text = "Товары";
 			this.tsbProduct.Click += new System.EventHandler(this.tsbProduct_Click);
+			// 
+			// tsbTopUp
+			// 
+			this.tsbTopUp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.tsbTopUp.Image = ((System.Drawing.Image)(resources.GetObject("tsbTopUp.Image")));
+			this.tsbTopUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbTopUp.Name = "tsbTopUp";
+			this.tsbTopUp.Size = new System.Drawing.Size(99, 22);
+			this.tsbTopUp.Text = "Пополнения";
+			this.tsbTopUp.Click += new System.EventHandler(this.tsbTopUp_Click);
 			// 
 			// menuStrip1
 			// 
@@ -154,7 +174,7 @@
 			// 
 			this.CashToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("CashToolStripMenuItem1.Image")));
 			this.CashToolStripMenuItem1.Name = "CashToolStripMenuItem1";
-			this.CashToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.CashToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
 			this.CashToolStripMenuItem1.Text = "Счета";
 			this.CashToolStripMenuItem1.Click += new System.EventHandler(this.CashToolStripMenuItem1_Click);
 			// 
@@ -162,7 +182,7 @@
 			// 
 			this.ProductToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ProductToolStripMenuItem.Image")));
 			this.ProductToolStripMenuItem.Name = "ProductToolStripMenuItem";
-			this.ProductToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ProductToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.ProductToolStripMenuItem.Text = "Товары";
 			this.ProductToolStripMenuItem.Click += new System.EventHandler(this.ProductToolStripMenuItem_Click);
 			// 
@@ -170,7 +190,7 @@
 			// 
 			this.topupMenuToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("topupMenuToolStripMenuItem.Image")));
 			this.topupMenuToolStripMenuItem.Name = "topupMenuToolStripMenuItem";
-			this.topupMenuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.topupMenuToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.topupMenuToolStripMenuItem.Text = "Пополнения";
 			this.topupMenuToolStripMenuItem.Click += new System.EventHandler(this.topupMenuToolStripMenuItem_Click);
 			// 
@@ -218,6 +238,11 @@
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.gbPurchase);
+			this.groupBox2.Controls.Add(this.txbProductFilter);
+			this.groupBox2.Controls.Add(this.label8);
+			this.groupBox2.Controls.Add(this.cbCashFilter);
+			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.label1);
 			this.groupBox2.Controls.Add(this.dtpEnd);
 			this.groupBox2.Controls.Add(this.dtpStart);
@@ -359,6 +384,7 @@
 			this.gbPurchase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.gbPurchase.Controls.Add(this.dtpDate);
 			this.gbPurchase.Controls.Add(this.cbOneMore);
 			this.gbPurchase.Controls.Add(this.lsbProduct);
 			this.gbPurchase.Controls.Add(this.scbProduct);
@@ -372,7 +398,7 @@
 			this.gbPurchase.Controls.Add(this.label4);
 			this.gbPurchase.Controls.Add(this.txbVolume);
 			this.gbPurchase.Controls.Add(this.label3);
-			this.gbPurchase.Location = new System.Drawing.Point(16, 146);
+			this.gbPurchase.Location = new System.Drawing.Point(0, 74);
 			this.gbPurchase.Name = "gbPurchase";
 			this.gbPurchase.Size = new System.Drawing.Size(1240, 486);
 			this.gbPurchase.TabIndex = 5;
@@ -397,7 +423,7 @@
 			this.lsbProduct.ItemHeight = 16;
 			this.lsbProduct.Location = new System.Drawing.Point(61, 223);
 			this.lsbProduct.Name = "lsbProduct";
-			this.lsbProduct.Size = new System.Drawing.Size(594, 148);
+			this.lsbProduct.Size = new System.Drawing.Size(556, 148);
 			this.lsbProduct.TabIndex = 6;
 			this.lsbProduct.Visible = false;
 			this.lsbProduct.Click += new System.EventHandler(this.lsbProduct_Click);
@@ -409,7 +435,7 @@
 			this.scbProduct.FormattingEnabled = true;
 			this.scbProduct.Location = new System.Drawing.Point(61, 196);
 			this.scbProduct.Name = "scbProduct";
-			this.scbProduct.Size = new System.Drawing.Size(594, 26);
+			this.scbProduct.Size = new System.Drawing.Size(556, 26);
 			this.scbProduct.TabIndex = 0;
 			this.scbProduct.SelectedIndexChanged += new System.EventHandler(this.scbProduct_SelectedIndexChanged);
 			this.scbProduct.SelectionChangeCommitted += new System.EventHandler(this.scbProduct_SelectionChangeCommitted);
@@ -419,7 +445,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(658, 174);
+			this.label6.Location = new System.Drawing.Point(838, 174);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(115, 16);
 			this.label6.TabIndex = 13;
@@ -430,10 +456,10 @@
 			this.cbCash.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.cbCash.FormattingEnabled = true;
-			this.cbCash.Location = new System.Drawing.Point(661, 196);
+			this.cbCash.Location = new System.Drawing.Point(841, 196);
 			this.cbCash.Name = "cbCash";
 			this.cbCash.Size = new System.Drawing.Size(220, 26);
-			this.cbCash.TabIndex = 1;
+			this.cbCash.TabIndex = 2;
 			// 
 			// btnCancel
 			// 
@@ -441,7 +467,7 @@
 			this.btnCancel.Location = new System.Drawing.Point(818, 268);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(147, 34);
-			this.btnCancel.TabIndex = 5;
+			this.btnCancel.TabIndex = 6;
 			this.btnCancel.Text = "Отмена";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -462,7 +488,7 @@
 			this.btnAddEdit.Location = new System.Drawing.Point(1014, 268);
 			this.btnAddEdit.Name = "btnAddEdit";
 			this.btnAddEdit.Size = new System.Drawing.Size(147, 34);
-			this.btnAddEdit.TabIndex = 4;
+			this.btnAddEdit.TabIndex = 5;
 			this.btnAddEdit.Text = "Добавить";
 			this.btnAddEdit.UseVisualStyleBackColor = true;
 			this.btnAddEdit.Click += new System.EventHandler(this.btnAddEdit_Click);
@@ -470,7 +496,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(1011, 174);
+			this.label5.Location = new System.Drawing.Point(1148, 176);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(51, 16);
 			this.label5.TabIndex = 6;
@@ -479,16 +505,16 @@
 			// txbSum
 			// 
 			this.txbSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.txbSum.Location = new System.Drawing.Point(1014, 196);
+			this.txbSum.Location = new System.Drawing.Point(1151, 198);
 			this.txbSum.Name = "txbSum";
-			this.txbSum.Size = new System.Drawing.Size(147, 24);
-			this.txbSum.TabIndex = 3;
+			this.txbSum.Size = new System.Drawing.Size(81, 24);
+			this.txbSum.TabIndex = 4;
 			this.txbSum.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txbSum_KeyUp);
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(884, 174);
+			this.label4.Location = new System.Drawing.Point(1064, 176);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(52, 16);
 			this.label4.TabIndex = 4;
@@ -497,10 +523,10 @@
 			// txbVolume
 			// 
 			this.txbVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.txbVolume.Location = new System.Drawing.Point(887, 196);
+			this.txbVolume.Location = new System.Drawing.Point(1067, 198);
 			this.txbVolume.Name = "txbVolume";
-			this.txbVolume.Size = new System.Drawing.Size(121, 24);
-			this.txbVolume.TabIndex = 2;
+			this.txbVolume.Size = new System.Drawing.Size(78, 24);
+			this.txbVolume.TabIndex = 3;
 			// 
 			// label3
 			// 
@@ -511,27 +537,56 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Наименование продукции";
 			// 
-			// toolStripSeparator1
+			// dtpDate
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			this.dtpDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.dtpDate.Location = new System.Drawing.Point(623, 198);
+			this.dtpDate.Name = "dtpDate";
+			this.dtpDate.Size = new System.Drawing.Size(212, 24);
+			this.dtpDate.TabIndex = 1;
 			// 
-			// tsbTopUp
+			// label7
 			// 
-			this.tsbTopUp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.tsbTopUp.Image = ((System.Drawing.Image)(resources.GetObject("tsbTopUp.Image")));
-			this.tsbTopUp.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbTopUp.Name = "tsbTopUp";
-			this.tsbTopUp.Size = new System.Drawing.Size(99, 22);
-			this.tsbTopUp.Text = "Пополнения";
-			this.tsbTopUp.Click += new System.EventHandler(this.tsbTopUp_Click);
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(564, 25);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(40, 16);
+			this.label7.TabIndex = 6;
+			this.label7.Text = "Счет";
+			// 
+			// cbCashFilter
+			// 
+			this.cbCashFilter.FormattingEnabled = true;
+			this.cbCashFilter.Location = new System.Drawing.Point(610, 21);
+			this.cbCashFilter.Name = "cbCashFilter";
+			this.cbCashFilter.Size = new System.Drawing.Size(200, 24);
+			this.cbCashFilter.TabIndex = 7;
+			this.cbCashFilter.SelectedIndexChanged += new System.EventHandler(this.cbCashFilter_SelectedIndexChanged);
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(816, 25);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(80, 16);
+			this.label8.TabIndex = 8;
+			this.label8.Text = "Продукция";
+			// 
+			// txbProductFilter
+			// 
+			this.txbProductFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txbProductFilter.Location = new System.Drawing.Point(902, 23);
+			this.txbProductFilter.Name = "txbProductFilter";
+			this.txbProductFilter.Size = new System.Drawing.Size(330, 22);
+			this.txbProductFilter.TabIndex = 9;
+			this.txbProductFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txbProductFilter_KeyUp);
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1272, 663);
-			this.Controls.Add(this.gbPurchase);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.gbCashPanel);
 			this.Controls.Add(this.statusStrip1);
@@ -607,6 +662,11 @@
 		private System.Windows.Forms.CheckBox cbOneMore;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton tsbTopUp;
+		private System.Windows.Forms.DateTimePicker dtpDate;
+		private System.Windows.Forms.TextBox txbProductFilter;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.ComboBox cbCashFilter;
+		private System.Windows.Forms.Label label7;
 	}
 }
 
