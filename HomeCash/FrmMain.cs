@@ -45,7 +45,7 @@ namespace HomeCash
 
 		private void CalculateSumm() {
 			double sum = lvPurchase.Items.Cast<ListViewItem>().Sum(item => double.Parse(item.SubItems[5].Text.Replace(".", ",")));
-			toolStripStatusSum.Text = @"Сумма: " + sum;
+			toolStripStatusSum.Text = @"Сумма: " + sum.ToString("0.00");
 		}
 
 		private Task<ListViewItem[]> LoadPurcaseAsync() {
@@ -77,7 +77,7 @@ namespace HomeCash
 						item.SubItems.Add(buf["cash"]);
 						item.SubItems.Add(buf["product"]);
 						item.SubItems.Add(buf["volume"]);
-						item.SubItems.Add(buf["sum"].Replace("-", ""));
+						item.SubItems.Add(float.Parse(buf["sum"].Replace("-", "").Replace(".",",")).ToString("0.00"));
 						itemCollection.Add(item);
 					}
 				}
@@ -123,15 +123,21 @@ namespace HomeCash
 			});
 		}
 
-		private string GetProductId(string name) {
-			if (!_productDict.ContainsValue(name.ToLower())) {
-				// Need add product
-				Guid newId = Guid.NewGuid();
-				Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
-				_productDict.Add(newId.ToString(), name);
-				return newId.ToString();
+		private string GetProductId(string name)
+		{
+			string key;
+			lock (_lock)
+			{
+				if (!_productDict.ContainsValue(name.ToLower())) {
+					// Need add product
+					Guid newId = Guid.NewGuid();
+					Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
+					_productDict.Add(newId.ToString(), name);
+					return newId.ToString();
+				}
+				key = _productDict.First(x => x.Value == name.ToLower()).Key;
 			}
-			return _productDict.First(x => x.Value == name.ToLower()).Key;
+			return key;
 		}
 
 		private Task<string[]> LoadProductAsync() {
@@ -184,10 +190,6 @@ namespace HomeCash
 
 		}
 
-		private void cashToolStripMenuItem_Click(object sender, EventArgs e) {
-			CreateCash();
-		}
-
 		private void dtpStart_ValueChanged(object sender, EventArgs e) {
 			LoadDataAsync();
 		}
@@ -203,9 +205,14 @@ namespace HomeCash
 				MessageBox.Show(@"В поле 'Сумма для внесения' должна быть сумма!");
 				return;
 			}
-			string summToData = String.Format("{0:0.00}", sum * -1).Replace(",", ".");
+			string summToData = (sum * -1).ToString("0.00").Replace(",", ".");
 			var cashid = ((ComboBoxItem)cbCash.SelectedItem).Id;
 			var productName = (string)scbProduct.SelectedItem ?? scbProduct.Text;
+			if (productName == string.Empty)
+			{
+				MessageBox.Show(@"Необходимо указать товар!", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
 			var productid = GetProductId(productName);
 			if (scbProduct.Tag == null) {
 				// Add

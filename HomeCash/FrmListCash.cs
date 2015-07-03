@@ -71,11 +71,11 @@ namespace HomeCash
 				var sum = Double.Parse(lvCash.SelectedItems[0].SubItems[1].Text);
 				var id = lvCash.SelectedItems[0].Tag;
 				if (sum > 0) {
-					MessageBox.Show(@"Внимание!", @"Счет содержит сумму, его нельзя удалить !",
+					MessageBox.Show(@"Счет содержит сумму, его нельзя удалить !", @"Внимание!",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					return;
 				}
-				var result = MessageBox.Show(@"Внимание!", @"Вы действительно хотите удалить счет: " + name + " ?",
+				var result = MessageBox.Show(@"Вы действительно хотите удалить счет: " + name + " ?", @"Внимание!",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes) {
 					Db.Exec("delete from cash where id='{0}'", id);

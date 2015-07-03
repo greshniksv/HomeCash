@@ -144,6 +144,11 @@ namespace HomeCash
 		private void btnAddEdit_Click(object sender, EventArgs e) {
 			double sum;
 			string ssum = txbObject.Text.Replace(".", ",");
+			if (cbCashList.SelectedItem == null)
+			{
+				MessageBox.Show(@"Необходимо выбрать счет который вы пополняете!",@"Внимание",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+				return;
+			}
 			if (!double.TryParse(ssum, out sum)) {
 				MessageBox.Show(@"В поле 'Сумма для внесения' должна быть сумма!");
 				return;
