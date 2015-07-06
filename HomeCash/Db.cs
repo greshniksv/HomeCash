@@ -77,8 +77,8 @@ namespace HomeCash
 		private static void GenerateDatabase() {
 			var builder = new StringBuilder();
 			builder.Append("create table purchase " +
-						   "(id varchar(36), number int, cashid varchar(36), productid varchar(36), volume varchar(10), " +
-						   "date datetime, sum DECIMAL(10,2), istotop BOOLEAN);");
+						   "(id varchar(36), moveid varchar(36), number int, cashid varchar(36), productid varchar(36), volume varchar(10), " +
+						   "date datetime, sum DECIMAL(10,2), type int);");
 			builder.Append("create table cash (id varchar(36), name varchar(50));");
 			builder.Append("create table product (id varchar(36), name varchar(50));");
 			Exec(builder.ToString());

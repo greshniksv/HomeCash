@@ -14,6 +14,7 @@ namespace HomeCash
 	public partial class FrmMain : Form
 	{
 		private bool _loading = false;
+		private bool _loadingPurchase = false;
 		private object _lock = new object();
 		private readonly Dictionary<string, string> _productDict = new Dictionary<string, string>();
 
@@ -27,6 +28,9 @@ namespace HomeCash
 		}
 
 		private async void LoadPurchase() {
+			if(_loadingPurchase)
+				return;
+			_loadingPurchase = true;
 			var cashId=string.Empty;
 			if (cbCashFilter.Items.Count > 0 && cbCashFilter.SelectedItem.ToString() != "Все") {
 				cashId = ((ComboBoxItem)cbCashFilter.SelectedItem).Id;
@@ -34,6 +38,7 @@ namespace HomeCash
 			lvPurchase.Items.Clear();
 			lvPurchase.Items.AddRange(await LoadPurcaseAsync(cashId));
 			CalculateSumm();
+			_loadingPurchase = false;
 		}
 
 		private async void LoadDataAsync() {
@@ -71,10 +76,10 @@ namespace HomeCash
 					"p.volume, p.date, p.sum \n" +
 					" from purchase p \n" +
 					" where p.date >= '{0}' and p.date <= '{1}' \n" +
-					" and istotop = '0' " +
+					" and type = '0' " +
 					(!string.IsNullOrEmpty(cashId) ? " and p.cashid = '{2}'" : string.Empty) +
 					(!string.IsNullOrEmpty(productFilter) ?
-					" and p.productid = (select pr1.id from product pr1 where pr1.name like '%{3}%') " : string.Empty) +
+					" and p.productid = (select pr1.id from product pr1 where LOWER(pr1.name) like LOWER('%{3}%') ) " : string.Empty) +
 					" order by date \n", start, end, cashId, productFilter);
 				DbReader reader;
 				if ((reader = Db.Read(sql)) != null) {
@@ -156,13 +161,19 @@ namespace HomeCash
 			return list.ToArray();
 		}
 
-		private string GetProductId(string name) {
-			if (!_productDict.ContainsValue(name.ToLower())) {
-				// Need add product
-				Guid newId = Guid.NewGuid();
-				Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
-				_productDict.Add(newId.ToString(), name);
-				return newId.ToString();
+		private string GetProductId(string name)
+		{
+			string key;
+			lock (_lock)
+			{
+				if (!_productDict.ContainsValue(name.ToLower())) {
+					// Need add product
+					Guid newId = Guid.NewGuid();
+					Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
+					_productDict.Add(newId.ToString(), name);
+					return newId.ToString();
+				}
+				key = _productDict.First(x => x.Value == name.ToLower()).Key;
 			}
 			return key;
 		}
@@ -243,7 +254,7 @@ namespace HomeCash
 			var productid = GetProductId(productName);
 			if (scbProduct.Tag == null) {
 				// Add
-				Db.Exec("insert into purchase (id, date, sum, cashid, productid, volume,  istotop, number) values " +
+				Db.Exec("insert into purchase (id, date, sum, cashid, productid, volume,  type, number) values " +
 						"('{0}','{1}','{2}','{3}','{4}','{5}', '0', (SELECT coalesce(max(number),0)+1 FROM purchase))",
 					Guid.NewGuid(), dtpDate.Value.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
 			} else {
@@ -365,7 +376,7 @@ namespace HomeCash
 		}
 
 		private void scbProduct_Leave(object sender, EventArgs e) {
-			lsbProduct.Visible = false;
+			//lsbProduct.Visible = false;
 		}
 
 		private void txbSum_KeyUp(object sender, KeyEventArgs e) {

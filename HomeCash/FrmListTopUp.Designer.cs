@@ -103,7 +103,7 @@
 			this.gbAddEdit.Controls.Add(this.txbObject);
 			this.gbAddEdit.Controls.Add(this.label1);
 			this.gbAddEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.gbAddEdit.Location = new System.Drawing.Point(12, 12);
+			this.gbAddEdit.Location = new System.Drawing.Point(255, 24);
 			this.gbAddEdit.Name = "gbAddEdit";
 			this.gbAddEdit.Size = new System.Drawing.Size(607, 393);
 			this.gbAddEdit.TabIndex = 11;
@@ -176,13 +176,13 @@
             this.EditToolStripMenuItem,
             this.RemoveToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(125, 70);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(129, 70);
 			// 
 			// AddToolStripMenuItem
 			// 
 			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
 			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-			this.AddToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+			this.AddToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.AddToolStripMenuItem.Text = "Добавить";
 			this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
 			// 
@@ -190,7 +190,7 @@
 			// 
 			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-			this.EditToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+			this.EditToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.EditToolStripMenuItem.Text = "Изменить";
 			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
 			// 
@@ -198,7 +198,7 @@
 			// 
 			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
 			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
-			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.RemoveToolStripMenuItem.Text = "Удалить";
 			this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
 			// 
@@ -215,6 +215,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "FrmListTopUp";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Поплнения";
 			this.Load += new System.EventHandler(this.FrmListTopUp_Load);
 			this.gbAddEdit.ResumeLayout(false);

@@ -46,6 +46,25 @@
 			this.toolStripStatusSum = new System.Windows.Forms.ToolStripStatusLabel();
 			this.gbCashPanel = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.gbPurchase = new System.Windows.Forms.GroupBox();
+			this.dtpDate = new System.Windows.Forms.DateTimePicker();
+			this.cbOneMore = new System.Windows.Forms.CheckBox();
+			this.lsbProduct = new System.Windows.Forms.ListBox();
+			this.scbProduct = new System.Windows.Forms.ComboBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.cbCash = new System.Windows.Forms.ComboBox();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.lblAddEdit = new System.Windows.Forms.Label();
+			this.btnAddEdit = new System.Windows.Forms.Button();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txbSum = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txbVolume = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txbProductFilter = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.cbCashFilter = new System.Windows.Forms.ComboBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.dtpEnd = new System.Windows.Forms.DateTimePicker();
 			this.dtpStart = new System.Windows.Forms.DateTimePicker();
@@ -61,31 +80,12 @@
 			this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label2 = new System.Windows.Forms.Label();
-			this.gbPurchase = new System.Windows.Forms.GroupBox();
-			this.cbOneMore = new System.Windows.Forms.CheckBox();
-			this.lsbProduct = new System.Windows.Forms.ListBox();
-			this.scbProduct = new System.Windows.Forms.ComboBox();
-			this.label6 = new System.Windows.Forms.Label();
-			this.cbCash = new System.Windows.Forms.ComboBox();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.lblAddEdit = new System.Windows.Forms.Label();
-			this.btnAddEdit = new System.Windows.Forms.Button();
-			this.label5 = new System.Windows.Forms.Label();
-			this.txbSum = new System.Windows.Forms.TextBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.txbVolume = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.dtpDate = new System.Windows.Forms.DateTimePicker();
-			this.label7 = new System.Windows.Forms.Label();
-			this.cbCashFilter = new System.Windows.Forms.ComboBox();
-			this.label8 = new System.Windows.Forms.Label();
-			this.txbProductFilter = new System.Windows.Forms.TextBox();
 			this.toolStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			this.contextMenuStrip1.SuspendLayout();
 			this.gbPurchase.SuspendLayout();
+			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip1
@@ -238,7 +238,6 @@
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox2.Controls.Add(this.gbPurchase);
 			this.groupBox2.Controls.Add(this.txbProductFilter);
 			this.groupBox2.Controls.Add(this.label8);
 			this.groupBox2.Controls.Add(this.cbCashFilter);
@@ -256,128 +255,6 @@
 			this.groupBox2.TabIndex = 4;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Покупки";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(19, 24);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(75, 16);
-			this.label1.TabIndex = 3;
-			this.label1.Text = "Начиная с";
-			// 
-			// dtpEnd
-			// 
-			this.dtpEnd.Location = new System.Drawing.Point(344, 23);
-			this.dtpEnd.Margin = new System.Windows.Forms.Padding(4);
-			this.dtpEnd.Name = "dtpEnd";
-			this.dtpEnd.Size = new System.Drawing.Size(211, 22);
-			this.dtpEnd.TabIndex = 2;
-			this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpEnd_ValueChanged);
-			// 
-			// dtpStart
-			// 
-			this.dtpStart.Location = new System.Drawing.Point(101, 23);
-			this.dtpStart.Margin = new System.Windows.Forms.Padding(4);
-			this.dtpStart.Name = "dtpStart";
-			this.dtpStart.Size = new System.Drawing.Size(205, 22);
-			this.dtpStart.TabIndex = 1;
-			this.dtpStart.ValueChanged += new System.EventHandler(this.dtpStart_ValueChanged);
-			// 
-			// lvPurchase
-			// 
-			this.lvPurchase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lvPurchase.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Number,
-            this.Date,
-            this.Cash,
-            this.ProductName,
-            this.volume,
-            this.Sum});
-			this.lvPurchase.ContextMenuStrip = this.contextMenuStrip1;
-			this.lvPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.lvPurchase.FullRowSelect = true;
-			this.lvPurchase.GridLines = true;
-			this.lvPurchase.Location = new System.Drawing.Point(8, 53);
-			this.lvPurchase.Margin = new System.Windows.Forms.Padding(4);
-			this.lvPurchase.Name = "lvPurchase";
-			this.lvPurchase.Size = new System.Drawing.Size(1224, 425);
-			this.lvPurchase.TabIndex = 0;
-			this.lvPurchase.UseCompatibleStateImageBehavior = false;
-			this.lvPurchase.View = System.Windows.Forms.View.Details;
-			// 
-			// Number
-			// 
-			this.Number.Text = "Номер";
-			// 
-			// Date
-			// 
-			this.Date.Text = "Дата";
-			this.Date.Width = 130;
-			// 
-			// Cash
-			// 
-			this.Cash.Text = "Счет";
-			this.Cash.Width = 150;
-			// 
-			// ProductName
-			// 
-			this.ProductName.Text = "Продукция";
-			this.ProductName.Width = 580;
-			// 
-			// volume
-			// 
-			this.volume.Text = "Объем";
-			this.volume.Width = 120;
-			// 
-			// Sum
-			// 
-			this.Sum.Text = "Сумма";
-			this.Sum.Width = 120;
-			// 
-			// contextMenuStrip1
-			// 
-			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddToolStripMenuItem,
-            this.EditToolStripMenuItem,
-            this.RemoveToolStripMenuItem});
-			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(125, 70);
-			// 
-			// AddToolStripMenuItem
-			// 
-			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
-			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-			this.AddToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.AddToolStripMenuItem.Text = "Добавить";
-			this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
-			// 
-			// EditToolStripMenuItem
-			// 
-			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
-			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-			this.EditToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.EditToolStripMenuItem.Text = "Изменить";
-			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
-			// 
-			// RemoveToolStripMenuItem
-			// 
-			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
-			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
-			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.RemoveToolStripMenuItem.Text = "Удалить";
-			this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(313, 25);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(24, 16);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "по";
 			// 
 			// gbPurchase
 			// 
@@ -398,13 +275,21 @@
 			this.gbPurchase.Controls.Add(this.label4);
 			this.gbPurchase.Controls.Add(this.txbVolume);
 			this.gbPurchase.Controls.Add(this.label3);
-			this.gbPurchase.Location = new System.Drawing.Point(0, 74);
+			this.gbPurchase.Location = new System.Drawing.Point(16, 146);
 			this.gbPurchase.Name = "gbPurchase";
 			this.gbPurchase.Size = new System.Drawing.Size(1240, 486);
 			this.gbPurchase.TabIndex = 5;
 			this.gbPurchase.TabStop = false;
 			this.gbPurchase.Text = "Оформить покупку";
 			this.gbPurchase.Visible = false;
+			// 
+			// dtpDate
+			// 
+			this.dtpDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.dtpDate.Location = new System.Drawing.Point(623, 198);
+			this.dtpDate.Name = "dtpDate";
+			this.dtpDate.Size = new System.Drawing.Size(212, 24);
+			this.dtpDate.TabIndex = 1;
 			// 
 			// cbOneMore
 			// 
@@ -537,41 +422,6 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Наименование продукции";
 			// 
-			// dtpDate
-			// 
-			this.dtpDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.dtpDate.Location = new System.Drawing.Point(623, 198);
-			this.dtpDate.Name = "dtpDate";
-			this.dtpDate.Size = new System.Drawing.Size(212, 24);
-			this.dtpDate.TabIndex = 1;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(564, 25);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(40, 16);
-			this.label7.TabIndex = 6;
-			this.label7.Text = "Счет";
-			// 
-			// cbCashFilter
-			// 
-			this.cbCashFilter.FormattingEnabled = true;
-			this.cbCashFilter.Location = new System.Drawing.Point(610, 21);
-			this.cbCashFilter.Name = "cbCashFilter";
-			this.cbCashFilter.Size = new System.Drawing.Size(200, 24);
-			this.cbCashFilter.TabIndex = 7;
-			this.cbCashFilter.SelectedIndexChanged += new System.EventHandler(this.cbCashFilter_SelectedIndexChanged);
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(816, 25);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(80, 16);
-			this.label8.TabIndex = 8;
-			this.label8.Text = "Продукция";
-			// 
 			// txbProductFilter
 			// 
 			this.txbProductFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -582,11 +432,162 @@
 			this.txbProductFilter.TabIndex = 9;
 			this.txbProductFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txbProductFilter_KeyUp);
 			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(816, 25);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(80, 16);
+			this.label8.TabIndex = 8;
+			this.label8.Text = "Продукция";
+			// 
+			// cbCashFilter
+			// 
+			this.cbCashFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbCashFilter.FormattingEnabled = true;
+			this.cbCashFilter.Location = new System.Drawing.Point(610, 21);
+			this.cbCashFilter.Name = "cbCashFilter";
+			this.cbCashFilter.Size = new System.Drawing.Size(200, 24);
+			this.cbCashFilter.TabIndex = 7;
+			this.cbCashFilter.SelectedIndexChanged += new System.EventHandler(this.cbCashFilter_SelectedIndexChanged);
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(564, 25);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(40, 16);
+			this.label7.TabIndex = 6;
+			this.label7.Text = "Счет";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(19, 24);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(75, 16);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "Начиная с";
+			// 
+			// dtpEnd
+			// 
+			this.dtpEnd.Location = new System.Drawing.Point(344, 23);
+			this.dtpEnd.Margin = new System.Windows.Forms.Padding(4);
+			this.dtpEnd.Name = "dtpEnd";
+			this.dtpEnd.Size = new System.Drawing.Size(211, 22);
+			this.dtpEnd.TabIndex = 2;
+			this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpEnd_ValueChanged);
+			// 
+			// dtpStart
+			// 
+			this.dtpStart.Location = new System.Drawing.Point(101, 23);
+			this.dtpStart.Margin = new System.Windows.Forms.Padding(4);
+			this.dtpStart.Name = "dtpStart";
+			this.dtpStart.Size = new System.Drawing.Size(205, 22);
+			this.dtpStart.TabIndex = 1;
+			this.dtpStart.ValueChanged += new System.EventHandler(this.dtpStart_ValueChanged);
+			// 
+			// lvPurchase
+			// 
+			this.lvPurchase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvPurchase.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Number,
+            this.Date,
+            this.Cash,
+            this.ProductName,
+            this.volume,
+            this.Sum});
+			this.lvPurchase.ContextMenuStrip = this.contextMenuStrip1;
+			this.lvPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lvPurchase.FullRowSelect = true;
+			this.lvPurchase.GridLines = true;
+			this.lvPurchase.Location = new System.Drawing.Point(8, 53);
+			this.lvPurchase.Margin = new System.Windows.Forms.Padding(4);
+			this.lvPurchase.Name = "lvPurchase";
+			this.lvPurchase.Size = new System.Drawing.Size(1224, 425);
+			this.lvPurchase.TabIndex = 0;
+			this.lvPurchase.UseCompatibleStateImageBehavior = false;
+			this.lvPurchase.View = System.Windows.Forms.View.Details;
+			// 
+			// Number
+			// 
+			this.Number.Text = "Номер";
+			// 
+			// Date
+			// 
+			this.Date.Text = "Дата";
+			this.Date.Width = 130;
+			// 
+			// Cash
+			// 
+			this.Cash.Text = "Счет";
+			this.Cash.Width = 150;
+			// 
+			// ProductName
+			// 
+			this.ProductName.Text = "Продукция";
+			this.ProductName.Width = 580;
+			// 
+			// volume
+			// 
+			this.volume.Text = "Объем";
+			this.volume.Width = 120;
+			// 
+			// Sum
+			// 
+			this.Sum.Text = "Сумма";
+			this.Sum.Width = 120;
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddToolStripMenuItem,
+            this.EditToolStripMenuItem,
+            this.RemoveToolStripMenuItem});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(129, 70);
+			// 
+			// AddToolStripMenuItem
+			// 
+			this.AddToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("AddToolStripMenuItem.Image")));
+			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
+			this.AddToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.AddToolStripMenuItem.Text = "Добавить";
+			this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
+			// 
+			// EditToolStripMenuItem
+			// 
+			this.EditToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("EditToolStripMenuItem.Image")));
+			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
+			this.EditToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.EditToolStripMenuItem.Text = "Изменить";
+			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
+			// 
+			// RemoveToolStripMenuItem
+			// 
+			this.RemoveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RemoveToolStripMenuItem.Image")));
+			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
+			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.RemoveToolStripMenuItem.Text = "Удалить";
+			this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(313, 25);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(24, 16);
+			this.label2.TabIndex = 4;
+			this.label2.Text = "по";
+			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1272, 663);
+			this.Controls.Add(this.gbPurchase);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.gbCashPanel);
 			this.Controls.Add(this.statusStrip1);
@@ -607,9 +608,9 @@
 			this.statusStrip1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			this.contextMenuStrip1.ResumeLayout(false);
 			this.gbPurchase.ResumeLayout(false);
 			this.gbPurchase.PerformLayout();
+			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

@@ -70,7 +70,7 @@ namespace HomeCash
 				string sql = "select p.id, p.date, p.sum, \n" +
 					" (select c.name from cash c where c.id = p.cashid) as cash \n" +
 					" from purchase p \n" +
-					" where p.istotop=1 " +
+					" where p.type=1 " +
 					" order by date \n";
 				DbReader reader;
 				if ((reader = Db.Read(sql)) != null) {
@@ -126,9 +126,9 @@ namespace HomeCash
 				var sum = lvTopUp.SelectedItems[0].SubItems[2].Text;
 				var date = lvTopUp.SelectedItems[0].Text;
 				var id = lvTopUp.SelectedItems[0].Tag;
-				var result = MessageBox.Show(@"Внимание!",
+				var result = MessageBox.Show(
 					string.Format(@"Вы действительно хотите удалить пополнение с датой {0} на счет {1} и суммой {2} ?",
-					date, cash, sum),
+					date, cash, sum), @"Внимание!",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes) {
 					Db.Exec("delete from cash where id='{0}'", id);
@@ -157,7 +157,7 @@ namespace HomeCash
 			var cashid = ((ComboBoxItem)cbCashList.SelectedItem).Id;
 			if (txbObject.Tag == null) {
 				// Add
-				Db.Exec("insert into purchase (id, date, sum, cashid, istotop) values ('{0}','{1}','{2}','{3}', '1')",
+				Db.Exec("insert into purchase (id, date, sum, cashid, type) values ('{0}','{1}','{2}','{3}', '1')",
 					Guid.NewGuid().ToString(), DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid);
 			} else {
 				// Edit
