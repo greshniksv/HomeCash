@@ -33,20 +33,20 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.gbAddEdit = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.cbCashListTo = new System.Windows.Forms.ComboBox();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.cbCashListFrom = new System.Windows.Forms.ComboBox();
 			this.btnAddEdit = new System.Windows.Forms.Button();
 			this.lblAddEditHeader = new System.Windows.Forms.Label();
 			this.txbObject = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.cbCashListTo = new System.Windows.Forms.ComboBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
 			this.lvMove = new System.Windows.Forms.ListView();
 			this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.CashFrom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.sum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.CashTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.sum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,39 +86,68 @@
 			this.gbAddEdit.Controls.Add(this.txbObject);
 			this.gbAddEdit.Controls.Add(this.label1);
 			this.gbAddEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.gbAddEdit.Location = new System.Drawing.Point(194, 439);
+			this.gbAddEdit.Location = new System.Drawing.Point(12, 12);
 			this.gbAddEdit.Name = "gbAddEdit";
-			this.gbAddEdit.Size = new System.Drawing.Size(607, 393);
+			this.gbAddEdit.Size = new System.Drawing.Size(981, 393);
 			this.gbAddEdit.TabIndex = 12;
 			this.gbAddEdit.TabStop = false;
 			this.gbAddEdit.Visible = false;
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(208, 226);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(59, 16);
+			this.label3.TabIndex = 8;
+			this.label3.Text = "На счет";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(208, 170);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(198, 16);
+			this.label2.TabIndex = 7;
+			this.label2.Text = "Переместить сумму со счета";
+			// 
+			// cbCashListTo
+			// 
+			this.cbCashListTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbCashListTo.FormattingEnabled = true;
+			this.cbCashListTo.Location = new System.Drawing.Point(205, 245);
+			this.cbCashListTo.Name = "cbCashListTo";
+			this.cbCashListTo.Size = new System.Drawing.Size(571, 24);
+			this.cbCashListTo.TabIndex = 6;
+			// 
 			// btnCancel
 			// 
-			this.btnCancel.Location = new System.Drawing.Point(377, 296);
+			this.btnCancel.Location = new System.Drawing.Point(558, 285);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(104, 23);
 			this.btnCancel.TabIndex = 5;
 			this.btnCancel.Text = "Отмена";
 			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// cbCashListFrom
 			// 
 			this.cbCashListFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbCashListFrom.FormattingEnabled = true;
-			this.cbCashListFrom.Location = new System.Drawing.Point(24, 200);
+			this.cbCashListFrom.Location = new System.Drawing.Point(205, 189);
 			this.cbCashListFrom.Name = "cbCashListFrom";
 			this.cbCashListFrom.Size = new System.Drawing.Size(571, 24);
 			this.cbCashListFrom.TabIndex = 4;
 			// 
 			// btnAddEdit
 			// 
-			this.btnAddEdit.Location = new System.Drawing.Point(501, 296);
+			this.btnAddEdit.Location = new System.Drawing.Point(682, 285);
 			this.btnAddEdit.Name = "btnAddEdit";
 			this.btnAddEdit.Size = new System.Drawing.Size(94, 23);
 			this.btnAddEdit.TabIndex = 3;
 			this.btnAddEdit.Text = "button1";
 			this.btnAddEdit.UseVisualStyleBackColor = true;
+			this.btnAddEdit.Click += new System.EventHandler(this.btnAddEdit_Click);
 			// 
 			// lblAddEditHeader
 			// 
@@ -132,7 +161,7 @@
 			// 
 			// txbObject
 			// 
-			this.txbObject.Location = new System.Drawing.Point(24, 143);
+			this.txbObject.Location = new System.Drawing.Point(205, 132);
 			this.txbObject.Name = "txbObject";
 			this.txbObject.Size = new System.Drawing.Size(571, 22);
 			this.txbObject.TabIndex = 1;
@@ -140,38 +169,11 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(21, 124);
+			this.label1.Location = new System.Drawing.Point(202, 113);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(51, 16);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Сумма";
-			// 
-			// cbCashListTo
-			// 
-			this.cbCashListTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbCashListTo.FormattingEnabled = true;
-			this.cbCashListTo.Location = new System.Drawing.Point(24, 256);
-			this.cbCashListTo.Name = "cbCashListTo";
-			this.cbCashListTo.Size = new System.Drawing.Size(571, 24);
-			this.cbCashListTo.TabIndex = 6;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(27, 181);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(198, 16);
-			this.label2.TabIndex = 7;
-			this.label2.Text = "Переместить сумму со счета";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(27, 237);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(59, 16);
-			this.label3.TabIndex = 8;
-			this.label3.Text = "На счет";
 			// 
 			// lvMove
 			// 
@@ -180,6 +182,7 @@
             this.CashFrom,
             this.CashTo,
             this.sum});
+			this.lvMove.ContextMenuStrip = this.contextMenuStrip1;
 			this.lvMove.FullRowSelect = true;
 			this.lvMove.GridLines = true;
 			this.lvMove.Location = new System.Drawing.Point(12, 12);
@@ -199,15 +202,15 @@
 			this.CashFrom.Text = "Со счета    =>";
 			this.CashFrom.Width = 330;
 			// 
-			// sum
-			// 
-			this.sum.Text = "Сумма";
-			this.sum.Width = 140;
-			// 
 			// CashTo
 			// 
 			this.CashTo.Text = "На счет";
 			this.CashTo.Width = 330;
+			// 
+			// sum
+			// 
+			this.sum.Text = "Сумма";
+			this.sum.Width = 140;
 			// 
 			// contextMenuStrip1
 			// 
@@ -216,14 +219,15 @@
             this.EditToolStripMenuItem,
             this.removeToolStripMenuItem1});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(129, 70);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(125, 70);
 			// 
 			// addToolStripMenuItem
 			// 
 			this.addToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addToolStripMenuItem.Image")));
 			this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-			this.addToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.addToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.addToolStripMenuItem.Text = "Добавить";
+			this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
 			// 
 			// EditToolStripMenuItem
 			// 
@@ -231,6 +235,7 @@
 			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
 			this.EditToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.EditToolStripMenuItem.Text = "Изменить";
+			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
 			// 
 			// removeToolStripMenuItem1
 			// 
@@ -238,20 +243,22 @@
 			this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
 			this.removeToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
 			this.removeToolStripMenuItem1.Text = "Удалить";
+			this.removeToolStripMenuItem1.Click += new System.EventHandler(this.removeToolStripMenuItem1_Click);
 			// 
 			// FrmMove
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1005, 472);
-			this.Controls.Add(this.lvMove);
 			this.Controls.Add(this.gbAddEdit);
+			this.Controls.Add(this.lvMove);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.btnOk);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "FrmMove";
-			this.Text = "FrmMove";
+			this.Text = "Перемещение";
 			this.Load += new System.EventHandler(this.FrmMove_Load);
 			this.gbAddEdit.ResumeLayout(false);
 			this.gbAddEdit.PerformLayout();

@@ -157,7 +157,7 @@ namespace HomeCash
 			var cashid = ((ComboBoxItem)cbCashList.SelectedItem).Id;
 			if (txbObject.Tag == null) {
 				// Add
-				Db.Exec("insert into purchase (id, date, sum, cashid, type) values ('{0}','{1}','{2}','{3}', '1')",
+				Db.Exec("insert into purchase (id, date, sum, cashid, type) values ('{0}','{1}','{2}','{3}', 1)",
 					Guid.NewGuid().ToString(), DateTime.Now.ToString("yyyy-MM-dd"), summToData, cashid);
 			} else {
 				// Edit

@@ -23,6 +23,7 @@ namespace HomeCash
 					Application.DoEvents();
 				});
 				if (isValidDatabse) {
+					CheckDbStructureOnExistTypeAndMoveid();
 					backup.Create();
 				} else {
 					var messageResult = MessageBox.Show("База данных повреждена или отсутствует!\n" +
@@ -40,6 +41,32 @@ namespace HomeCash
 			Hide();
 			form.ShowDialog();
 			Application.Exit();
+		}
+
+		private void CheckDbStructureOnExistTypeAndMoveid() {
+			string sqlAddTypeAndMoveid = 
+				" BEGIN TRANSACTION; "+
+				" ALTER TABLE purchase ADD COLUMN type int; "+
+				" ALTER TABLE purchase ADD COLUMN moveid varchar(36); "+
+				" update purchase set type=(select  CASE WHEN istotop THEN 1 ELSE 0 END from purchase p2 where p2.id = purchase.id); "+
+				" CREATE TEMPORARY TABLE purchase_backup(id,moveid,number,cashid,productid,volume,date,sum,type); "+
+				" INSERT INTO purchase_backup SELECT id,moveid,number,cashid,productid,volume,date,sum,type FROM purchase; "+
+				" DROP TABLE purchase; "+
+				" CREATE TABLE purchase(id,moveid,number,cashid,productid,volume,date,sum,type); "+
+				" INSERT INTO purchase SELECT id,moveid,number,cashid,productid,volume,date,sum,type FROM purchase_backup; " +
+				" DROP TABLE purchase_backup;"+
+				" COMMIT;";
+			Db.Connect();
+			try {
+				Db.ReadOne("select moveid from purchase");
+			} catch {
+				var messageResult = MessageBox.Show(@"Структура база данных устарела, обновить ?", @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+				if (messageResult == DialogResult.Yes) {
+					Db.Exec(sqlAddTypeAndMoveid);
+					MessageBox.Show(@"Структуру базы данных обновлена!", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+			}
+			Db.Disconnect();
 		}
 
 	}

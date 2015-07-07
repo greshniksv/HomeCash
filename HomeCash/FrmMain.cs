@@ -9,6 +9,7 @@ using ComboBoxItem = HomeCash.FrmListTopUp.ComboBoxItem;
 namespace HomeCash
 {
 	using System.Data.SQLite;
+	using System.Diagnostics;
 	using System.Linq;
 
 	public partial class FrmMain : Form
@@ -76,11 +77,12 @@ namespace HomeCash
 					"p.volume, p.date, p.sum \n" +
 					" from purchase p \n" +
 					" where p.date >= '{0}' and p.date <= '{1}' \n" +
-					" and type = '0' " +
+					" and type = 0 " +
 					(!string.IsNullOrEmpty(cashId) ? " and p.cashid = '{2}'" : string.Empty) +
 					(!string.IsNullOrEmpty(productFilter) ?
 					" and p.productid = (select pr1.id from product pr1 where LOWER(pr1.name) like LOWER('%{3}%') ) " : string.Empty) +
 					" order by date \n", start, end, cashId, productFilter);
+				Debug.WriteLine("Select purchase: {0}", sql);
 				DbReader reader;
 				if ((reader = Db.Read(sql)) != null) {
 					NameValueCollection buf;
@@ -255,7 +257,7 @@ namespace HomeCash
 			if (scbProduct.Tag == null) {
 				// Add
 				Db.Exec("insert into purchase (id, date, sum, cashid, productid, volume,  type, number) values " +
-						"('{0}','{1}','{2}','{3}','{4}','{5}', '0', (SELECT coalesce(max(number),0)+1 FROM purchase))",
+						"('{0}','{1}','{2}','{3}','{4}','{5}', 0, (SELECT coalesce(max(number),0)+1 FROM purchase))",
 					Guid.NewGuid(), dtpDate.Value.ToString("yyyy-MM-dd"), summToData, cashid, productid, txbVolume.Text);
 			} else {
 				// Edit
@@ -343,6 +345,12 @@ namespace HomeCash
 			LoadDataAsync();
 		}
 
+		private void moveToolStripMenuItem_Click(object sender, EventArgs e) {
+			var move = new FrmMove();
+			move.ShowDialog();
+			LoadDataAsync();
+		}
+
 		private void SelectComboBox(ComboBox cb, string selectItem) {
 			foreach (object item in cb.Items) {
 				if (item.ToString() == selectItem) {
@@ -408,6 +416,10 @@ namespace HomeCash
 			topupMenuToolStripMenuItem_Click(null, null);
 		}
 
+		private void movetoolStripButton1_Click(object sender, EventArgs e) {
+			moveToolStripMenuItem_Click(null, null);
+		}
+
 		private void cbCashFilter_SelectedIndexChanged(object sender, EventArgs e) {
 			LoadPurchase();
 		}
@@ -420,6 +432,8 @@ namespace HomeCash
 				LoadPurchase();
 			}
 		}
+
+
 
 	}
 }

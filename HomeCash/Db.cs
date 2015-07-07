@@ -74,6 +74,13 @@ namespace HomeCash
 			}
 		}
 
+		public static void Disconnect() {
+			_command.Cancel();
+			_command.Dispose();
+			_connection.Close();
+			_command.Dispose();
+		}
+
 		private static void GenerateDatabase() {
 			var builder = new StringBuilder();
 			builder.Append("create table purchase " +
@@ -81,6 +88,18 @@ namespace HomeCash
 						   "date datetime, sum DECIMAL(10,2), type int);");
 			builder.Append("create table cash (id varchar(36), name varchar(50));");
 			builder.Append("create table product (id varchar(36), name varchar(50));");
+			// Create index for purchase
+			builder.Append(" CREATE INDEX idx_purchase_id ON purchase(id); ");
+			builder.Append(" CREATE INDEX idx_purchase_cashid ON purchase(cashid); ");
+			builder.Append(" CREATE INDEX idx_purchase_productid ON purchase(productid); ");
+			builder.Append(" CREATE INDEX idx_purchase_date ON purchase(date);");
+			builder.Append(" CREATE INDEX idx_purchase_type ON purchase(type);");
+			// Create index for cash
+			builder.Append(" CREATE INDEX idx_cash_id ON cash(id); ");
+			builder.Append(" CREATE INDEX idx_cash_name ON cash(name); ");
+			// Create index for product
+			builder.Append(" CREATE INDEX idx_product_id ON product(id); ");
+			builder.Append(" CREATE INDEX idx_product_name ON product(name); ");
 			Exec(builder.ToString());
 		}
 
