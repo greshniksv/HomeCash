@@ -36,11 +36,15 @@
 			this.tsbCash = new System.Windows.Forms.ToolStripButton();
 			this.tsbProduct = new System.Windows.Forms.ToolStripButton();
 			this.tsbTopUp = new System.Windows.Forms.ToolStripButton();
+			this.movetoolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.управлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CashToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.ProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.topupMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusSum = new System.Windows.Forms.ToolStripStatusLabel();
@@ -80,8 +84,6 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txbVolume = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.movetoolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -150,10 +152,20 @@
 			this.tsbTopUp.Text = "Пополнения";
 			this.tsbTopUp.Click += new System.EventHandler(this.tsbTopUp_Click);
 			// 
+			// movetoolStripButton1
+			// 
+			this.movetoolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("movetoolStripButton1.Image")));
+			this.movetoolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.movetoolStripButton1.Name = "movetoolStripButton1";
+			this.movetoolStripButton1.Size = new System.Drawing.Size(97, 22);
+			this.movetoolStripButton1.Text = "Перемещение";
+			this.movetoolStripButton1.Click += new System.EventHandler(this.movetoolStripButton1_Click);
+			// 
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.управлениеToolStripMenuItem,
+            this.настройкиToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
@@ -197,6 +209,30 @@
 			this.topupMenuToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.topupMenuToolStripMenuItem.Text = "Пополнения";
 			this.topupMenuToolStripMenuItem.Click += new System.EventHandler(this.topupMenuToolStripMenuItem_Click);
+			// 
+			// moveToolStripMenuItem
+			// 
+			this.moveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("moveToolStripMenuItem.Image")));
+			this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
+			this.moveToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.moveToolStripMenuItem.Text = "Перемещение";
+			this.moveToolStripMenuItem.Click += new System.EventHandler(this.moveToolStripMenuItem_Click);
+			// 
+			// настройкиToolStripMenuItem
+			// 
+			this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+			this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+			this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(99, 21);
+			this.настройкиToolStripMenuItem.Text = "Дополнительно";
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.toolStripMenuItem1.Text = "Настройки";
+			this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
 			// 
 			// оПрограммеToolStripMenuItem
 			// 
@@ -586,23 +622,6 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Наименование продукции";
 			// 
-			// moveToolStripMenuItem
-			// 
-			this.moveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("moveToolStripMenuItem.Image")));
-			this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
-			this.moveToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-			this.moveToolStripMenuItem.Text = "Перемещение";
-			this.moveToolStripMenuItem.Click += new System.EventHandler(this.moveToolStripMenuItem_Click);
-			// 
-			// movetoolStripButton1
-			// 
-			this.movetoolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("movetoolStripButton1.Image")));
-			this.movetoolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.movetoolStripButton1.Name = "movetoolStripButton1";
-			this.movetoolStripButton1.Size = new System.Drawing.Size(97, 22);
-			this.movetoolStripButton1.Text = "Перемещение";
-			this.movetoolStripButton1.Click += new System.EventHandler(this.movetoolStripButton1_Click);
-			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -691,6 +710,8 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.ToolStripButton movetoolStripButton1;
 		private System.Windows.Forms.ToolStripMenuItem moveToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
 	}
 }
 

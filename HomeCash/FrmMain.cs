@@ -347,6 +347,11 @@ namespace HomeCash
 			LoadDataAsync();
 		}
 
+		private void toolStripMenuItem1_Click(object sender, EventArgs e) {
+			var config = new FrmConfig();
+			config.ShowDialog();
+		}
+
 		private void SelectComboBox(ComboBox cb, string selectItem) {
 			foreach (object item in cb.Items) {
 				if (item.ToString() == selectItem) {
@@ -428,6 +433,7 @@ namespace HomeCash
 				LoadPurchase();
 			}
 		}
+
 
 
 

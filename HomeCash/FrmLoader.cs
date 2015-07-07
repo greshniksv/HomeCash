@@ -40,16 +40,14 @@ namespace HomeCash
 			Db.Connect();
 			var form = new FrmMain();
 			Hide();
+			if (AppSettings.FullScreen) {
+				form.WindowState =FormWindowState.Maximized;
+			}
 			form.ShowDialog();
 			Application.Exit();
 		}
 
 		private void CheckDbStructureOnExistTypeAndMoveid() {
-			string dbbak = Db.DatabaseFile + ".bak";
-			if (File.Exists(dbbak)) {
-				File.Move(dbbak, dbbak+"_"+Guid.NewGuid());
-			}
-			File.Copy(Db.DatabaseFile, dbbak);
 			const string sqlAddTypeAndMoveid =
 				" BEGIN TRANSACTION; " +
 				" ALTER TABLE purchase ADD COLUMN type int; " +
@@ -60,7 +58,8 @@ namespace HomeCash
 				" CREATE TEMPORARY TABLE purchase_backup(id,moveid,number,cashid,productid,volume,date,sum,type); " +
 				" INSERT INTO purchase_backup SELECT id,moveid,number,cashid,productid,volume,date,sum,type FROM purchase; " +
 				" DROP TABLE purchase; " +
-				" CREATE TABLE purchase (id varchar(36), moveid varchar(36), number int, cashid varchar(36), productid varchar(36), volume varchar(10), date datetime, sum DECIMAL(10,2), type int);" +
+				" CREATE TABLE purchase (id varchar(36), moveid varchar(36), number int, cashid varchar(36), " +
+					"productid varchar(36), volume varchar(10), date datetime, sum DECIMAL(10,2), type int);" +
 				" INSERT INTO purchase SELECT id,moveid,number,cashid,productid,volume,date,sum,type FROM purchase_backup; " +
 				" DROP TABLE purchase_backup;" +
 				" COMMIT;";
@@ -70,6 +69,14 @@ namespace HomeCash
 			} catch {
 				var messageResult = MessageBox.Show(@"Структура база данных устарела, обновить ?", @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
 				if (messageResult == DialogResult.Yes) {
+
+					// backup existing db
+					string dbbak = Db.DatabaseFile + ".bak";
+					if (File.Exists(dbbak)) {
+						File.Move(dbbak, dbbak + "_" + Guid.NewGuid());
+					}
+					File.Copy(Db.DatabaseFile, dbbak);
+
 					Db.Exec(sqlAddTypeAndMoveid);
 
 					var reader = Db.Read("select id, name from cash order by name");
