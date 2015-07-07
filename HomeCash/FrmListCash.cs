@@ -75,7 +75,7 @@ namespace HomeCash
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					return;
 				}
-				var result = MessageBox.Show(@"Вы действительно хотите удалить счет: " + name + " ?", @"Внимание!",
+				var result = MessageBox.Show(@"Вы действительно хотите удалить счет: " + name + @" ?", @"Внимание!",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes) {
 					Db.Exec("delete from cash where id='{0}'", id);
@@ -87,10 +87,12 @@ namespace HomeCash
 		private void btnAddEdit_Click(object sender, EventArgs e) {
 			if (txbObjectName.Tag == null) {
 				// Add
-				Db.Exec("insert into cash (id, name) values ('{0}','{1}')", Guid.NewGuid().ToString(), txbObjectName.Text);
+				Db.Exec("insert into cash (id, name, namel) values ('{0}','{1}','{2}')", Guid.NewGuid().ToString(), 
+					txbObjectName.Text, txbObjectName.Text.ToLower());
 			} else {
 				// Edit
-				Db.Exec("update cash set name = '{1}' where id='{0}'", txbObjectName.Tag, txbObjectName.Text);
+				Db.Exec("update cash set name = '{1}', namel='{2}' where id='{0}'", txbObjectName.Tag, 
+					txbObjectName.Text, txbObjectName.Text.ToLower());
 			}
 			gbAddEdit.Visible = false;
 			LoadDataAsync();

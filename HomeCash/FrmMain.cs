@@ -6,24 +6,24 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComboBoxItem = HomeCash.FrmListTopUp.ComboBoxItem;
+using System.Diagnostics;
+using System.Linq;
+
 namespace HomeCash
 {
-	using System.Data.SQLite;
-	using System.Diagnostics;
-	using System.Linq;
 
 	public partial class FrmMain : Form
 	{
-		private bool _loading = false;
-		private bool _loadingPurchase = false;
-		private object _lock = new object();
+		private bool _loading;
+		private bool _loadingPurchase;
+		private readonly object _lock = new object();
 		private readonly Dictionary<string, string> _productDict = new Dictionary<string, string>();
 
 		public FrmMain() {
 			InitializeComponent();
 		}
 
-		private void MainForm_Load(object sender, System.EventArgs e) {
+		private void MainForm_Load(object sender, EventArgs e) {
 			dtpEnd.Value = DateTime.Now.AddDays(1);
 			LoadDataAsync();
 		}
@@ -80,8 +80,8 @@ namespace HomeCash
 					" and type = 0 " +
 					(!string.IsNullOrEmpty(cashId) ? " and p.cashid = '{2}'" : string.Empty) +
 					(!string.IsNullOrEmpty(productFilter) ?
-					" and p.productid = (select pr1.id from product pr1 where LOWER(pr1.name) like LOWER('%{3}%') ) " : string.Empty) +
-					" order by date \n", start, end, cashId, productFilter);
+					" and p.productid = (select pr1.id from product pr1 where pr1.namel like '%{3}%' ) " : string.Empty) +
+					" order by date \n", start, end, cashId, productFilter.ToLower());
 				Debug.WriteLine("Select purchase: {0}", sql);
 				DbReader reader;
 				if ((reader = Db.Read(sql)) != null) {
@@ -171,7 +171,7 @@ namespace HomeCash
 				if (!_productDict.ContainsValue(name.ToLower())) {
 					// Need add product
 					Guid newId = Guid.NewGuid();
-					Db.Exec("insert into product (id, name) values ('{0}','{1}')", newId, name);
+					Db.Exec("insert into product (id, name, namel) values ('{0}','{1}','{2}')", newId, name, name.ToLower());
 					_productDict.Add(newId.ToString(), name);
 					return newId.ToString();
 				}
@@ -223,10 +223,6 @@ namespace HomeCash
 				gbCashPanel.Controls.Add(box);
 				location += blockSize + 8;
 			}
-
-		}
-
-		private void CreateCash() {
 
 		}
 
@@ -284,7 +280,7 @@ namespace HomeCash
 			gbPurchase.Visible = true;
 			scbProduct.Tag = null;
 			txbVolume.Text = "";
-			txbSum.Text = "0";
+			txbSum.Text = @"0";
 			scbProduct.Text = "";
 			btnAddEdit.Text = @"Добавить";
 			lblAddEdit.Text = @"Добавить покупку";

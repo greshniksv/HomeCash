@@ -72,6 +72,7 @@ namespace HomeCash
 			if (generateDatabase) {
 				GenerateDatabase();
 			}
+			Exec("PRAGMA case_sensitive_like = 1;");
 		}
 
 		public static void Disconnect() {
@@ -86,20 +87,28 @@ namespace HomeCash
 			builder.Append("create table purchase " +
 						   "(id varchar(36), moveid varchar(36), number int, cashid varchar(36), productid varchar(36), volume varchar(10), " +
 						   "date datetime, sum DECIMAL(10,2), type int);");
-			builder.Append("create table cash (id varchar(36), name varchar(50));");
-			builder.Append("create table product (id varchar(36), name varchar(50));");
+			builder.Append("create table cash (id varchar(36), name varchar(50), namel varchar(50));");
+			builder.Append("create table product (id varchar(36), name varchar(50), namel varchar(50));");
+			Exec(builder.ToString());
+			CreateIndexOfNotExist();
+		}
+
+		internal static void CreateIndexOfNotExist() {
+			var builder = new StringBuilder();
 			// Create index for purchase
-			builder.Append(" CREATE INDEX idx_purchase_id ON purchase(id); ");
-			builder.Append(" CREATE INDEX idx_purchase_cashid ON purchase(cashid); ");
-			builder.Append(" CREATE INDEX idx_purchase_productid ON purchase(productid); ");
-			builder.Append(" CREATE INDEX idx_purchase_date ON purchase(date);");
-			builder.Append(" CREATE INDEX idx_purchase_type ON purchase(type);");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_purchase_id ON purchase(id); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_purchase_cashid ON purchase(cashid); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_purchase_productid ON purchase(productid); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_purchase_date ON purchase(date);");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_purchase_type ON purchase(type);");
 			// Create index for cash
-			builder.Append(" CREATE INDEX idx_cash_id ON cash(id); ");
-			builder.Append(" CREATE INDEX idx_cash_name ON cash(name); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_cash_id ON cash(id); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_cash_name ON cash(name); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_cash_namel ON cash(namel); ");
 			// Create index for product
-			builder.Append(" CREATE INDEX idx_product_id ON product(id); ");
-			builder.Append(" CREATE INDEX idx_product_name ON product(name); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_product_id ON product(id); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_product_name ON product(name); ");
+			builder.Append(" CREATE INDEX IF NOT EXISTS idx_product_namel ON product(namel); ");
 			Exec(builder.ToString());
 		}
 

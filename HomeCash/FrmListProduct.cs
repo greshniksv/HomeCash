@@ -79,10 +79,10 @@ namespace HomeCash
 		private void btnAddEdit_Click(object sender, EventArgs e) {
 			if (txbProductName.Tag == null) {
 				// Add
-				Db.Exec("insert into product (id, name) values ('{0}','{1}')", Guid.NewGuid().ToString(), txbProductName.Text);
+				Db.Exec("insert into product (id, name, namel) values ('{0}','{1}', '{2}')", Guid.NewGuid().ToString(), txbProductName.Text, txbProductName.Text.ToLower());
 			} else {
 				// Edit
-				Db.Exec("update product set name = '{1}' where id='{0}'", txbProductName.Tag, txbProductName.Text);
+				Db.Exec("update product set name = '{1}', namel='{2}' where id='{0}'", txbProductName.Tag, txbProductName.Text, txbProductName.Text.ToLower());
 			}
 			gbAddEditProduct.Visible = false;
 			LoadDataAsync();
