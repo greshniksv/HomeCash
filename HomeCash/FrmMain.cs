@@ -80,10 +80,11 @@ namespace HomeCash
 					" and type = 0 " +
 					(!string.IsNullOrEmpty(cashId) ? " and p.cashid = '{2}'" : string.Empty) +
 					(!string.IsNullOrEmpty(productFilter) ?
-					" and p.productid = (select pr1.id from product pr1 where pr1.namel like '%{3}%' ) " : string.Empty) +
+					" and p.productid in (select pr1.id from product pr1 where pr1.namel like '%{3}%' ) " : string.Empty) +
 					" order by date \n", start, end, cashId, productFilter.ToLower());
 				Debug.WriteLine("Select purchase: {0}", sql);
 				DbReader reader;
+				
 				if ((reader = Db.Read(sql)) != null) {
 					NameValueCollection buf;
 					while ((buf = reader.Next()) != null) {
